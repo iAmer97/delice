@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp"
+        tools:context=".Posting"
+        >
+
+
+        <EditText
+            android:id="@+id/editTextNumber6"
+            android:layout_width="120dp"
+            android:layout_height="43dp"
+            android:ems="10"
+            android:hint="Quantity"
+            android:inputType="number"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="706dp" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingredient"
+            android:inputType="textPersonName"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="706dp" />
+
+        <ImageSwitcher
+            android:id="@+id/Image"
+            android:layout_width="348dp"
+            android:layout_height="154dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="114dp">
+
+            <ImageView
+                android:id="@+id/placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/placeholder" />
+        </ImageSwitcher>
+
+        <Button
+            android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="286dp"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            tools:layout_editor_absoluteX="291dp"
+            tools:layout_editor_absoluteY="286dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="348dp"
+            android:layout_height="42dp"
+            android:ems="10"
+            android:hint="Recipe name"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="344dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/RecDes"
+            android:layout_width="346dp"
+            android:layout_height="170dp"
+            android:ems="10"
+            android:hint="Recipe Description"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="392dp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredients"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="570dp"
+            android:textSize="26sp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            android:layout_width="120dp"
+            android:layout_height="43dp"
+            android:ems="10"
+            android:hint="Quantity"
+            android:inputType="number"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="619dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editTextNumber2"
+            android:layout_width="120dp"
+            android:layout_height="43dp"
+            android:ems="10"
+            android:hint="Quantity"
+            android:inputType="number"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="662dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingredient"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="617dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingredient"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="662dp"
+            tools:ignore="MissingConstraints"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
