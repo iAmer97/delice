@@ -32,9 +32,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
-        //ViewPager vp = findViewById(R.id.viewPager);
-        //ImageAdapter img = new ImageAdapter(this);
-        //vp.setAdapter(img);
         image = findViewById(R.id.Image);
         prev = findViewById(R.id.prev);
         next = findViewById(R.id.next);
@@ -106,16 +103,13 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
                         Uri imageUri = data.getClipData().getItemAt(i).getUri();
                         imageuris.add(imageUri);
-                        pics++;
-                        ImageAdapter.setNumber(pics);
+
                     }
                     image.setImageURI(imageuris.get(0));
                     position = 0;
                 } else {
                     Uri imageUri = data.getData();
                     imageuris.add(imageUri);
-                    pics++;
-                    ImageAdapter.setNumber(pics);
                     image.setImageURI(imageuris.get(0));
                     position = 0;
                 }

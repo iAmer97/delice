@@ -13,13 +13,6 @@
         android:paddingBottom="100dp"
         tools:context=".Posting">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="300dp">
-
-
-        </androidx.viewpager.widget.ViewPager>
 
         <Button
             android:id="@+id/upload"
