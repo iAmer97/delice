@@ -2,38 +2,49 @@ package android.example.instagramclone;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.example.instagramclone.R;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 
-public class Posting extends AppCompatActivity {
-    public ImageSwitcher image;
-    Button next, prev;
+public class Posting extends AppCompatActivity implements View.OnClickListener {
+    Button next, prev,add,upload;
+    LinearLayout LL;
 
-    public ArrayList<Uri> imageuris;
+    public static ArrayList<Uri> imageuris;
+    public ImageSwitcher image;
     public static final int PICK = 0;
     int position = 0;
+    int pics=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
+        //ViewPager vp = findViewById(R.id.viewPager);
+        //ImageAdapter img = new ImageAdapter(this);
+        //vp.setAdapter(img);
         image = findViewById(R.id.Image);
         prev = findViewById(R.id.prev);
         next = findViewById(R.id.next);
+        LL = findViewById(R.id.layout);
+        add = findViewById(R.id.addbtn);
+        add.setOnClickListener(this::onClick);
         imageuris = new ArrayList<>();
+        upload=findViewById(R.id.upload);
 
-        image.setOnClickListener(new View.OnClickListener() {
+        upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImages();
@@ -95,16 +106,43 @@ public class Posting extends AppCompatActivity {
 
                         Uri imageUri = data.getClipData().getItemAt(i).getUri();
                         imageuris.add(imageUri);
+                        pics++;
+                        ImageAdapter.setNumber(pics);
                     }
                     image.setImageURI(imageuris.get(0));
                     position = 0;
                 } else {
                     Uri imageUri = data.getData();
                     imageuris.add(imageUri);
+                    pics++;
+                    ImageAdapter.setNumber(pics);
                     image.setImageURI(imageuris.get(0));
                     position = 0;
                 }
             }
         }
     }
+
+
+    public void onClick(View v) {
+        addView1();
+    }
+
+    public void addView1() {
+        final View add_ingredients_row = getLayoutInflater().inflate(R.layout.quantity,null,false);
+        EditText quantity = add_ingredients_row.findViewById(R.id.quantity);
+        EditText ingredient = add_ingredients_row.findViewById(R.id.ingredient);
+        ImageView cancel = add_ingredients_row.findViewById(R.id.cancelbtn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(add_ingredients_row);
+            }
+        });
+        LL.addView(add_ingredients_row);
+    }
+    public void removeView(View v){
+        LL.removeView(v);
+    }
+
 }

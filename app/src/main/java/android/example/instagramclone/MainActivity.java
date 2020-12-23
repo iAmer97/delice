@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.nav_add:
                     selectedFragment = null;
-                    startActivity(new Intent(MainActivity.this,PostActivity.class));
+                    startActivity(new Intent(MainActivity.this,Posting.class));
 
                     break;
 
