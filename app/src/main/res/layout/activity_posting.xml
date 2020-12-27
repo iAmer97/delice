@@ -136,7 +136,10 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
         android:orientation="vertical"
         tools:context=".Posting">
 
@@ -144,6 +147,65 @@
 
         <Button
             android:id="@+id/addbtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="+" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="35dp"
+            android:text="Steps"
+            android:textSize="26sp"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="570dp" />
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Step No."
+                android:inputType="number"
+                android:layout_gravity="start"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="619dp" />
+
+            <EditText
+                android:layout_width="224dp"
+                android:layout_height="159dp"
+                android:ems="10"
+                android:hint="description"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="160dp"
+                tools:layout_editor_absoluteY="662dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:context=".Posting">
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/addbtn2"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="+" />

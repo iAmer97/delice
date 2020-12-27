@@ -25,11 +25,11 @@
                 android:id="@+id/like"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="112dp"
-                android:layout_marginBottom="23dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
                 android:src="@drawable/ic_like"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/add_cart" />
 
             <ImageView
                 android:id="@+id/comment"
@@ -42,22 +42,24 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="30dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="64dp"
+                android:id="@+id/add_cart"
+                android:layout_width="25dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/comment"
                 app:srcCompat="@drawable/shopping" />
 
             <ImageView
                 android:id="@+id/save"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
                 android:src="@drawable/ic_saver_black"
-                tools:layout_editor_absoluteX="222dp"
-                tools:layout_editor_absoluteY="5dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/like" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

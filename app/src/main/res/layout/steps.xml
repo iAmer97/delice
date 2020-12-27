@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/steps"
+        android:layout_width="120dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Step No."
+        android:layout_gravity="start"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="211dp"
+        android:ems="10"
+        android:hint="description"
+        android:inputType="textPersonName" />
+
+    <ImageView
+        android:id="@+id/cancelbtn2"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_cancel"
+        tools:ignore="VectorDrawableCompat" />
 
 </LinearLayout>
