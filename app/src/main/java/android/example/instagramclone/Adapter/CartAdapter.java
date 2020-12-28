@@ -38,7 +38,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
         holder.product.setText(cartlist.get(position).product);
         holder.amount.setText(cartlist.get(position).amount);
 
-
     }
 
     @Override
@@ -72,7 +71,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
                 public void onClick(View v) {
                     int value = Integer.parseInt(amount.getText().toString().trim());
                     amount.setText(value-1);
-
                 }
             });
 
