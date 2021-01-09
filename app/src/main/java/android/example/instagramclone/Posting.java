@@ -1,10 +1,12 @@
 package android.example.instagramclone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,28 +14,56 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Posting extends AppCompatActivity implements View.OnClickListener {
-    Button next, prev, add, add2, upload;
+    Button next, prev, add, add2, upload, post;
     LinearLayout LL,LL2;
+    String myUrl = "";
+    boolean ingredientChecker = false;
+    boolean stepsChecker = false;
+
+    int j = 0;
+
+    EditText description,name,numberOfServings,tagsField;
+
+    Map ingredients,stepsMap,tags;
+
+    ArrayList imageDownloadUrls;
 
     public static ArrayList<Uri> imageuris;
     public ImageSwitcher image;
     public static final int PICK = 0;
     int position = 0;
     int pics = 0;
+
+    StorageTask uploadTask;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +79,18 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         add2.setOnClickListener(this::onClick2);
         add.setOnClickListener(this::onClick);
         imageuris = new ArrayList<>();
+        imageDownloadUrls = new ArrayList<>();
+        ingredients = new HashMap();
+        stepsMap = new HashMap();
+        tags = new HashMap();
         upload = findViewById(R.id.upload);
+        post = findViewById(R.id.post);
+        name = findViewById(R.id.name);
+        description = findViewById(R.id.RecDes);
+        numberOfServings = findViewById(R.id.numberOfServings);
+        tagsField = findViewById(R.id.tags);
+
+        storageReference = FirebaseStorage.getInstance().getReference("posts/"+post.getText().toString());
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +127,129 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadImage();
+            }
+        });
+    }
 
+    private String getFileExtension(Uri uri){
+        return  MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+    }
 
+    private void uploadImage(){
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Posting");
+        progressDialog.show();
+
+        String[] tagsList = tagsField.getText().toString().split(" ");
+        for (int i = 0; i < tagsList.length; i++ ){
+            tags.put(tagsList[i],true);
+        }
+
+        for (int i = 0; i < LL.getChildCount(); i++){
+            View ingredientView = LL.getChildAt(i);
+
+            EditText quantity = ingredientView.findViewById(R.id.quantity);
+            EditText ingredient = ingredientView.findViewById(R.id.ingredient);
+
+            if(quantity.getText().toString()=="" || ingredient.getText().toString()==""){
+                ingredientChecker = true;
+                break;
+            }
+
+            else{
+                ingredients.put(ingredient,quantity);
+            }
+        }
+
+        for (int i = 0; i < LL2.getChildCount(); i++){
+            View stepView = LL2.getChildAt(i);
+
+            EditText steps = stepView.findViewById(R.id.steps);
+            EditText desc = stepView.findViewById(R.id.desc);
+
+            if(steps.getText().toString()=="" || desc.getText().toString()==""){
+                stepsChecker = true;
+                break;
+            }
+
+            else{
+                stepsMap.put(steps,desc);
+            }
+        }
+
+        if(imageuris.size() != 0 && name.getText().toString() != "" && description.getText().toString() != "" && numberOfServings.getText().toString()!=""){
+
+            for (j = 0; j < imageuris.size();j++){
+                myUrl = "";
+                StorageReference filereference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageuris.get(j)));
+
+                uploadTask = filereference.putFile(imageuris.get(j));
+                uploadTask.continueWithTask(new Continuation() {
+                    @Override
+                    public Object then(@NonNull Task task) throws Exception {
+                        if(!task.isSuccessful()){
+                            throw task.getException();
+                        }
+
+                        return filereference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if(task.isSuccessful()){
+                            Uri downloadUri = task.getResult();
+                            myUrl = downloadUri.toString();
+                            imageDownloadUrls.add(myUrl);
+                        } else{
+                            Toast.makeText(Posting.this, "Image number "+j+ "failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Posting.this,"["+j+"]"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+
+            String postid = reference.push().getKey();
+
+            HashMap<String,Object> hashMap = new HashMap<>();
+            /*
+            this.postid = postid;
+        this.postimages = postimages;
+        this.description = description;
+        this.publisher = publisher;
+        this.tags = tags;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.numberOfServings = numberOfServings;
+            * */
+            hashMap.put("postid",postid);
+            hashMap.put("postimages",imageDownloadUrls);
+            hashMap.put("description",description.getText().toString());
+            hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            hashMap.put("tags",tags);
+            hashMap.put("ingredients",ingredients);
+            hashMap.put("steps",stepsMap);
+            hashMap.put("numberOfServings",numberOfServings);
+
+            reference.child(postid).setValue(hashMap);
+
+            progressDialog.dismiss();
+
+            startActivity(new Intent(Posting.this,MainActivity.class));
+            finish();
+
+        } else {
+            Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void pickImages() {

@@ -79,6 +79,15 @@
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="392dp" />
+        <EditText
+            android:id="@+id/tags"
+            android:layout_width="348dp"
+            android:layout_height="42dp"
+            android:ems="10"
+            android:hint="tags (seperate with space)"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="344dp" />
 
         <EditText
             android:layout_width="166dp"
@@ -88,6 +97,7 @@
             android:ems="10"
             android:hint="Number of servings"
             android:inputType="number"
+            android:id="@+id/numberOfServings"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="619dp" />
 
@@ -211,6 +221,12 @@
             android:text="+" />
 
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="POST"
+            android:id="@+id/post"
+            />
     </LinearLayout>
 
 </ScrollView>
