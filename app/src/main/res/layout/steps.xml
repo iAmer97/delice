@@ -12,14 +12,13 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <EditText
+    <TextView
         android:id="@+id/steps"
         android:layout_width="120dp"
         android:layout_height="43dp"
-        android:ems="10"
-        android:hint="Step No."
+        android:text="Step "
         android:layout_gravity="start"
-        android:inputType="number" />
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/desc"

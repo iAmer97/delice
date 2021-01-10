@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
@@ -47,6 +48,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Posting extends AppCompatActivity implements View.OnClickListener {
+    public int stepNum = 0;
+
+    public int getStepNum() {
+        return stepNum;
+    }
+
+    public void setStepNum(int stepNum) {
+        this.stepNum = stepNum;
+    }
+
     Button next, prev, add, add2, upload, post;
     LinearLayout LL,LL2;
     String myUrl = "";
@@ -287,6 +298,17 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK);
 
     }
+    public int stepNumInc(){
+        int num = getStepNum();
+        num++;
+        setStepNum(num);
+        return num;
+    }
+    public void stepNumDec(){
+        int num = getStepNum();
+        num--;
+        setStepNum(num);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -324,8 +346,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void addView1() {
-
-
             final View add_ingredients_row = getLayoutInflater().inflate(R.layout.quantity, null, false);
             EditText quantity = add_ingredients_row.findViewById(R.id.quantity);
             EditText ingredient = add_ingredients_row.findViewById(R.id.ingredient);
@@ -337,7 +357,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
                 }
             });
             LL.addView(add_ingredients_row);
-
     }
 
     public void removeView(View v) {
@@ -351,7 +370,8 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
     private void addview2() {
         final View add_steps = getLayoutInflater().inflate(R.layout.steps, null, false);
-        EditText steps = add_steps.findViewById(R.id.steps);
+        TextView steps = add_steps.findViewById(R.id.steps);
+        steps.setText(steps.getText() +""+ stepNumInc());
         EditText desc = add_steps.findViewById(R.id.desc);
         ImageView cancel2 = add_steps.findViewById(R.id.cancelbtn2);
         cancel2.setOnClickListener(new View.OnClickListener() {
@@ -364,5 +384,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     }
     public void removeView2(View v) {
         LL2.removeView(v);
+        stepNumDec();
     }
 }

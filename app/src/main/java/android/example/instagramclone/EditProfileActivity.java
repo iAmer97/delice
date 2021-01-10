@@ -3,6 +3,7 @@ package android.example.instagramclone;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -38,8 +39,9 @@ import java.util.HashMap;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    ImageView close,save,image_profile;
-    TextView tv_change;
+    ImageView close,image_profile;
+    Toolbar tb;
+    TextView tv_change,save;
     MaterialEditText fullname,username,bio;
 
     FirebaseUser firebaseUser;
@@ -51,7 +53,7 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
+        tb = findViewById(R.id.toolbar);
         close = findViewById(R.id.close);
         image_profile = findViewById(R.id.image_profile);
         save = findViewById(R.id.save);

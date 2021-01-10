@@ -13,6 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 
@@ -20,6 +28,8 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder> {
     Context context;
     List<ShoppingCart> cartlist;
+    FirebaseUser firebaseUser;
+
     public CartAdapter(Context context, List<ShoppingCart> cartlist) {
         this.context = context;
         this.cartlist = cartlist;
@@ -35,14 +45,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull cartViewHolder holder, int position) {
-        holder.product.setText(cartlist.get(position).ingredient);
-        holder.amount.setText(cartlist.get(position).amount);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        ShoppingCart item = cartlist.get(position);
+
+
+        holder.product.setText(item.getIngredient());
+        holder.amount.setText(item.getAmount());
 
     }
 
     @Override
     public int getItemCount() {
-        return cartlist.size();
+        return cartlist == null ? 0 : cartlist.size();
     }
 
     class cartViewHolder extends RecyclerView.ViewHolder{

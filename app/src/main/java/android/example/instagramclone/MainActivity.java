@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
 
-                /*case R.id.nav_heart:
-                    selectedFragment = new NotificationFragment();
+                case R.id.nav_cart:
+                    selectedFragment = null;
+                    startActivity(new Intent(MainActivity.this,CartActivity.class));
 
-                    break;*/
+                    break;
 
                 case R.id.nav_profile:
                     SharedPreferences.Editor editor = getSharedPreferences("PREFS",MODE_PRIVATE).edit();
