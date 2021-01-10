@@ -92,7 +92,8 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {};
+                    Map<String, Object> map = dataSnapshot.getValue(genericTypeIndicator);
                     Log.w("post", map.toString());
                     Log.w("num", map.get("numberOfServings").getClass().getName());
 

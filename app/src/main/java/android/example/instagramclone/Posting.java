@@ -171,7 +171,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
         for (int i = 0; i < LL2.getChildCount(); i++){
             View stepView = LL2.getChildAt(i);
-
+            Log.i("steps",LL2.getChildCount()+"");
             EditText steps = stepView.findViewById(R.id.steps);
             EditText desc = stepView.findViewById(R.id.desc);
 
@@ -181,7 +181,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
             }
 
             else{
-                stepsMap.put(steps.getText().toString(),desc.getText().toString());
+                stepsMap.put("step "+steps.getText().toString(),desc.getText().toString());
             }
         }
 
