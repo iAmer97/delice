@@ -8,8 +8,10 @@ import android.example.instagramclone.FollowingActivity;
 import android.example.instagramclone.Fragment.PostDetailsFragment;
 import android.example.instagramclone.Fragment.ProfileFragment;
 import android.example.instagramclone.Model.Post2;
+import android.example.instagramclone.Model.ShoppingCart;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,9 +211,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            map = snapshot.getValue(genericTypeIndicator);
+
+                            if(snapshot.exists()) {
+                                map = snapshot.getValue(genericTypeIndicator);
+                                Log.d("snapshot", snapshot.toString());
+                            }
+
+
+                        for (String ingredient : post.getIngredients().keySet()){
+                            Log.i("hi",map.toString()+ ingredient);
+                            if(map != null && map.containsKey(ingredient)){
+                                Log.i("hi","ingerdient");
+                                int sum = Integer.parseInt(map.get(ingredient))+ Integer.parseInt((String)post.getIngredients().get(ingredient));
+                                map.put(ingredient,sum+"");
+                            }
+
+                            else{
+                                Log.i("hi","ingerdient2");
+                                map.put(ingredient,(String)post.getIngredients().get(ingredient));
+                            }
                         }
+
+                        databaseReference.setValue(map);
                     }
 
                     @Override
@@ -218,19 +240,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     }
                 });
-
-                for (String ingredient : post.getIngredients().keySet()){
-                    if(map != null && map.containsKey(ingredient)){
-                        int sum = Integer.parseInt(map.get(ingredient))+ Integer.parseInt((String)post.getIngredients().get(ingredient));
-                        map.put(ingredient,sum+"");
-                    }
-
-                    else{
-                        map.put(ingredient,(String)post.getIngredients().get(ingredient));
-                    }
-                }
-
-                databaseReference.setValue(map);
 
 
             }

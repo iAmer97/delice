@@ -29,4 +29,12 @@ public class ShoppingCart {
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "ingredient='" + ingredient + '\'' +
+                ", amount='" + amount + '\'' +
+                '}';
+    }
 }
