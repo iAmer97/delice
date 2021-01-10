@@ -1,7 +1,7 @@
 package android.example.instagramclone.Fragment;
 
 import android.example.instagramclone.Adapter.PostAdapter;
-import android.example.instagramclone.Model.Post;
+import android.example.instagramclone.Model.Post2;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,16 +21,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
+    private List<Post2> postList;
 
     private List<String> followingList;
 
@@ -90,8 +92,13 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Post post = dataSnapshot.getValue(Post.class);
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    Log.w("post", map.toString());
+                    Log.w("num", map.get("numberOfServings").getClass().getName());
 
+                    Post2 post = new Post2((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
+
+                    Log.w("ingredients", post.getIngredients().toString());
                     if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(post.getPublisher())){
                         postList.add(post);
                     }
@@ -102,6 +109,7 @@ public class HomeFragment extends Fragment {
                             }
                         }
                     }
+
                 }
 
                 postAdapter.notifyDataSetChanged();

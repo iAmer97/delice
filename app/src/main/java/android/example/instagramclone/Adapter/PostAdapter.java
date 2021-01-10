@@ -7,7 +7,7 @@ import android.example.instagramclone.CommentsActivity;
 import android.example.instagramclone.FollowingActivity;
 import android.example.instagramclone.Fragment.PostDetailsFragment;
 import android.example.instagramclone.Fragment.ProfileFragment;
-import android.example.instagramclone.Model.Post;
+import android.example.instagramclone.Model.Post2;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
 import android.view.LayoutInflater;
@@ -36,11 +36,11 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public Context mContext;
-    public List<Post> mPost;
+    public List<Post2> mPost;
 
     private FirebaseUser firebaseUser;
 
-    public PostAdapter(Context mContext, List<Post> mPost) {
+    public PostAdapter(Context mContext, List<Post2> mPost) {
         this.mContext = mContext;
         this.mPost = mPost;
     }
@@ -55,10 +55,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Post post = mPost.get(position);
+        Post2 post = mPost.get(position);
 
         Glide.with(mContext)
-                .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder)).load(post.getPostimage()).into(holder.post_image);
+                .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder)).load(post.getPostimages().get(0)).into(holder.post_image);
 
         if(post.getDescription().equals("")){
             holder.description.setVisibility(View.GONE);

@@ -3,7 +3,7 @@ package android.example.instagramclone.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.example.instagramclone.Adapter.PostAdapter;
-import android.example.instagramclone.Model.Post;
+import android.example.instagramclone.Model.Post2;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,7 +30,7 @@ public class PostDetailsFragment extends Fragment {
     String postid;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
+    private List<Post2> postList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +64,7 @@ public class PostDetailsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
-                Post post = snapshot.getValue(Post.class);
+                Post2 post = snapshot.getValue(Post2.class);
                 postList.add(post);
 
                 postAdapter.notifyDataSetChanged();

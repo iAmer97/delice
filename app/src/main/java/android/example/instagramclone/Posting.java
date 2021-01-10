@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.StorageTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Posting extends AppCompatActivity implements View.OnClickListener {
@@ -52,9 +54,9 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
     EditText description,name,numberOfServings,tagsField;
 
-    Map ingredients,stepsMap,tags;
+    Map<String,Object> ingredients,stepsMap,tags;
 
-    ArrayList imageDownloadUrls;
+    List<Object> imageDownloadUrls;
 
     public static ArrayList<Uri> imageuris;
     public ImageSwitcher image;
@@ -136,6 +138,8 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     }
 
     private String getFileExtension(Uri uri){
+        Log.i("uri", MimeTypeMap.getFileExtensionFromUrl(uri.toString()));
+        Log.w("uri", uri.toString());
         return  MimeTypeMap.getFileExtensionFromUrl(uri.toString());
     }
 
@@ -161,7 +165,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
             }
 
             else{
-                ingredients.put(ingredient,quantity);
+                ingredients.put(ingredient.getText().toString(),quantity.getText().toString());
             }
         }
 
@@ -177,11 +181,11 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
             }
 
             else{
-                stepsMap.put(steps,desc);
+                stepsMap.put(steps.getText().toString(),desc.getText().toString());
             }
         }
 
-        if(imageuris.size() != 0 && name.getText().toString() != "" && description.getText().toString() != "" && numberOfServings.getText().toString()!=""){
+        if(imageuris.size() != 0 ){
 
             for (j = 0; j < imageuris.size();j++){
                 myUrl = "";
@@ -203,7 +207,35 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
                         if(task.isSuccessful()){
                             Uri downloadUri = task.getResult();
                             myUrl = downloadUri.toString();
+                            Log.w("urls",myUrl);
                             imageDownloadUrls.add(myUrl);
+
+                            if(imageDownloadUrls.size()==imageuris.size()){
+                                HashMap<String,Object> hashMap = new HashMap<>();
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+
+                                String postid = reference.push().getKey();
+
+                                hashMap.put("postid",postid);
+                                hashMap.put("postimages",imageDownloadUrls);
+                                hashMap.put("description",description.getText().toString());
+                                hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                hashMap.put("tags",tags);
+                                hashMap.put("ingredients",ingredients);
+                                hashMap.put("steps",stepsMap);
+                                hashMap.put("numberOfServings",numberOfServings.getText().toString());
+
+                                Log.i("hi",hashMap.toString());
+
+                                reference.child(postid).setValue(hashMap);
+
+                                progressDialog.dismiss();
+
+                                startActivity(new Intent(Posting.this,MainActivity.class));
+                                finish();
+
+                            }
                         } else{
                             Toast.makeText(Posting.this, "Image number "+j+ "failed!", Toast.LENGTH_SHORT).show();
                         }
@@ -216,39 +248,12 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
                 });
             }
 
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
-            String postid = reference.push().getKey();
-
-            HashMap<String,Object> hashMap = new HashMap<>();
-            /*
-            this.postid = postid;
-        this.postimages = postimages;
-        this.description = description;
-        this.publisher = publisher;
-        this.tags = tags;
-        this.ingredients = ingredients;
-        this.steps = steps;
-        this.numberOfServings = numberOfServings;
-            * */
-            hashMap.put("postid",postid);
-            hashMap.put("postimages",imageDownloadUrls);
-            hashMap.put("description",description.getText().toString());
-            hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
-            hashMap.put("tags",tags);
-            hashMap.put("ingredients",ingredients);
-            hashMap.put("steps",stepsMap);
-            hashMap.put("numberOfServings",numberOfServings);
-
-            reference.child(postid).setValue(hashMap);
-
-            progressDialog.dismiss();
-
-            startActivity(new Intent(Posting.this,MainActivity.class));
-            finish();
 
         } else {
+            progressDialog.dismiss();
             Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+
         }
     }
 

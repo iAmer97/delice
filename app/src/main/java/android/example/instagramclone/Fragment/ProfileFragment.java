@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.example.instagramclone.Adapter.MyPhotoAdapter;
 import android.example.instagramclone.EditProfileActivity;
 import android.example.instagramclone.FollowingActivity;
-import android.example.instagramclone.Model.Post;
+import android.example.instagramclone.Model.Post2;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.OptionsActivity;
 import android.os.Bundle;
@@ -50,11 +50,11 @@ public class ProfileFragment extends Fragment {
 
     RecyclerView recyclerView_saved;
     MyPhotoAdapter myPhotoAdapter_saved;
-    List<Post> postList_saved;
+    List<Post2> postList_saved;
 
     RecyclerView recyclerView;
     MyPhotoAdapter myPhotoAdapter;
-    List<Post> postList;
+    List<Post2> postList;
 
     FirebaseUser firebaseUser;
     String profileid;
@@ -279,7 +279,7 @@ public class ProfileFragment extends Fragment {
                 int i = 0;
                 postList.clear();
                 for( DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Post post = dataSnapshot.getValue(Post.class);
+                    Post2 post = dataSnapshot.getValue(Post2.class);
 
                     if(post.getPublisher().equals(profileid)){
                         postList.add(post);
@@ -328,7 +328,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList_saved.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Post post = dataSnapshot.getValue(Post.class);
+                    Post2 post = dataSnapshot.getValue(Post2.class);
 
                     if(mySaves.contains(post.getPostid())){
                         postList_saved.add(post);

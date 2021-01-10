@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.example.instagramclone.Fragment.PostDetailsFragment;
 import android.example.instagramclone.Fragment.ProfileFragment;
 import android.example.instagramclone.Model.Notification;
-import android.example.instagramclone.Model.Post;
+import android.example.instagramclone.Model.Post2;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
 import android.view.LayoutInflater;
@@ -133,8 +133,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Post post = snapshot.getValue(Post.class);
-                Glide.with(mContext).load(post.getPostimage()).into(imageView);
+                Post2 post = snapshot.getValue(Post2.class);
+                Glide.with(mContext).load(post.getPostimages().get(0)).into(imageView);
             }
 
             @Override

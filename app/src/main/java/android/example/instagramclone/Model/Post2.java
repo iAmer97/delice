@@ -3,7 +3,7 @@ package android.example.instagramclone.Model;
 import java.util.List;
 import java.util.Map;
 
-public class Post {
+public class Post2 {
     private String postid;
     private List postimages;
     private String description;
@@ -12,9 +12,9 @@ public class Post {
     private Map<String,Object> tags;
     private Map<String,Object> ingredients;
     private Map<String,Object> steps;
-    private int numberOfServings;
+    private String numberOfServings;
 
-    public Post(String postid, List postimages, String description, String name, String publisher, Map<String, Object> tags, Map<String, Object> ingredients, Map<String, Object> steps, int numberOfServings) {
+    public Post2(String postid, List postimages, String description, String name, String publisher, Map<String, Object> tags, Map<String, Object> ingredients, Map<String, Object> steps, String numberOfServings) {
         this.postid = postid;
         this.postimages = postimages;
         this.description = description;
@@ -26,7 +26,7 @@ public class Post {
         this.numberOfServings = numberOfServings;
     }
 
-    public Post() {
+    public Post2() {
     }
 
     public String getPostid() {
@@ -93,11 +93,11 @@ public class Post {
         this.steps = steps;
     }
 
-    public int getNumberOfServings() {
+    public String getNumberOfServings() {
         return numberOfServings;
     }
 
-    public void setNumberOfServings(int numberOfServings) {
+    public void setNumberOfServings(String numberOfServings) {
         this.numberOfServings = numberOfServings;
     }
 }
