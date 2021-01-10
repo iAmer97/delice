@@ -32,8 +32,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -63,6 +66,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     public static final int PICK = 0;
     int position = 0;
     int pics = 0;
+    String postid;
 
     StorageTask uploadTask;
     StorageReference storageReference;
@@ -92,7 +96,9 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         numberOfServings = findViewById(R.id.numberOfServings);
         tagsField = findViewById(R.id.tags);
 
-        storageReference = FirebaseStorage.getInstance().getReference("posts/"+post.getText().toString());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        postid = reference.push().getKey();
+        storageReference = FirebaseStorage.getInstance().getReference("posts/"+postid);
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +157,22 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         String[] tagsList = tagsField.getText().toString().split(" ");
         for (int i = 0; i < tagsList.length; i++ ){
             tags.put(tagsList[i],true);
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tags").child(tagsList[i]);
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(!snapshot.exists()){
+                        reference.setValue(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
         for (int i = 0; i < LL.getChildCount(); i++){
@@ -215,7 +237,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
-                                String postid = reference.push().getKey();
+
 
                                 hashMap.put("postid",postid);
                                 hashMap.put("postimages",imageDownloadUrls);

@@ -28,10 +28,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -194,6 +196,45 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 mContext.startActivity(intent);
             }
         });
+
+        holder.add_cart.setOnClickListener(new View.OnClickListener() {
+
+            GenericTypeIndicator<Map<String,String>> genericTypeIndicator = new GenericTypeIndicator<Map<String, String>>(){};
+            Map<String, String> map= new HashMap<String,String>();
+            @Override
+            public void onClick(View v) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Cart").child(firebaseUser.getUid());
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()) {
+                            map = snapshot.getValue(genericTypeIndicator);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                for (String ingredient : post.getIngredients().keySet()){
+                    if(map != null && map.containsKey(ingredient)){
+                        int sum = Integer.parseInt(map.get(ingredient))+ Integer.parseInt((String)post.getIngredients().get(ingredient));
+                        map.put(ingredient,sum+"");
+                    }
+
+                    else{
+                        map.put(ingredient,(String)post.getIngredients().get(ingredient));
+                    }
+                }
+
+                databaseReference.setValue(map);
+
+
+            }
+        });
     }
 
     @Override
@@ -203,7 +244,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView image_profile, post_image, like, comment, save;
+        public ImageView image_profile, post_image, like, comment, save,add_cart;
         public TextView username, likes, publisher, description, comments;
 
         public ViewHolder(@NonNull View itemView) {
@@ -219,6 +260,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             publisher = itemView.findViewById(R.id.publisher);
             description = itemView.findViewById(R.id.description);
             comments = itemView.findViewById(R.id.comments);
+            add_cart = itemView.findViewById(R.id.add_cart);
         }
     }
 

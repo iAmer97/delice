@@ -6,19 +6,27 @@ import android.example.instagramclone.R;
 import android.os.Bundle;
 
 public class ShoppingCart {
-    public String product;
+    public String ingredient;
     public String amount;
 
-    public ShoppingCart(String product, String amount) {
-        this.product = product;
+    public ShoppingCart(String ingredient, String amount) {
+        this.ingredient = ingredient;
         this.amount = amount;
     }
 
-    public String getProduct() {
-        return product;
+    public String getIngredient() {
+        return ingredient;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }
