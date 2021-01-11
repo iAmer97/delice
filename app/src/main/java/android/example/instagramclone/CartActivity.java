@@ -18,23 +18,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
     RecyclerView cart;
     List<ShoppingCart> carts;
     FirebaseUser firebaseUser;
-
+    CartAdapter cartAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        carts = new ArrayList<>();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         cart = findViewById(R.id.cart);
         cart.setLayoutManager(new LinearLayoutManager(this));
         cart.setHasFixedSize(true);
-        CartAdapter cartAdapter = new CartAdapter(this, carts);
+        cartAdapter = new CartAdapter(this, carts);
 
         cart.setAdapter(cartAdapter);
         getItems();
@@ -46,11 +48,11 @@ public class CartActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                carts.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    ShoppingCart item = dataSnapshot.getValue(ShoppingCart.class);
-                    carts.add(item);
+                    carts.add(new ShoppingCart(dataSnapshot.getKey(),dataSnapshot.getValue(String.class)));
                 }
+                cartAdapter.notifyDataSetChanged();
             }
 
             @Override

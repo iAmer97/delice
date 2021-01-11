@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
     class cartViewHolder extends RecyclerView.ViewHolder{
         TextView product;
         EditText amount;
-        Button inc,dec;
+        ImageView inc,dec;
 
 
         public cartViewHolder(@NonNull View itemView) {
