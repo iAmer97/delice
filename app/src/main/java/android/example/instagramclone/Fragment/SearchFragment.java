@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment {
         search_bar = view.findViewById(R.id.search_bar);
         cg = view.findViewById(R.id.cg);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String [] tags = new String[] {"tag","tag2","tag3","tag3","tag3","tag3","tag3","tag3","tag3","tag3","tag3"};
+        String [] tags = new String[] {"amer","ameruddin","amir","amy","mire","tag3","tag3","tag3","tag3","tag3","tag3"};
         LayoutInflater li = LayoutInflater.from(getActivity());
         for(String text : tags){
             Chip chip = (Chip) li.inflate(R.layout.tags,null,false);
