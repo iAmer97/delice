@@ -5,49 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/landing_page"
     android:gravity="center"
-    android:padding="10dp"
+    android:padding="50dp"
     tools:context=".LoginActivity">
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:src="@drawable/instagram"/>
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_delice"
+       />
+
+    <ImageView
+        android:layout_width="394dp"
+        android:layout_height="294dp"
+        android:src="@drawable/illustration" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittext_background"
-        android:hint="Email"
-        android:layout_marginTop="15dp"
         android:id="@+id/email"
-        android:padding="10dp"/>
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edittext_background"
-        android:hint="Password"
         android:layout_marginTop="15dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/poppins"
+        android:hint="Email"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="#4B846A" />
+
+    <EditText
         android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/poppins"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="#4B846A" />
 
     <Button
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/login"
-        android:text="Log in"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="15dp"
         android:background="@drawable/button_background"
-        android:layout_marginTop="15dp"/>
+        android:fontFamily="@font/poppins_bold"
+        android:text="Log in"
+        android:textColor="#FFFFFF" />
 
     <TextView
+        android:id="@+id/txt_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You don't have an account? Sign up"
-        android:id="@+id/txt_signup"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
+        android:text="You don't have an account? Sign up" />
 
 
 

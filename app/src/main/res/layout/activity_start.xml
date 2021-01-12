@@ -6,30 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity"
     android:gravity="center"
+    android:background="@drawable/landing_page3"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="50dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Welcome To Delice"
+        android:textColor="#4B846A"
+        android:textSize="22sp"
+        android:paddingTop="20dp"/>
 
     <ImageView
+        android:layout_width="411dp"
+        android:layout_height="273dp"
+
+        android:src="@drawable/illustration2" />
+
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:src="@drawable/instagram"/>
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Start Exploring Food Now"
+        android:textColor="#4B846A"
+        android:paddingTop="80dp"
+        android:textSize="18sp" />
+
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log in"
         android:id="@+id/login"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/button_background"/>
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/register"
         android:layout_marginTop="15dp"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/button_background"/>
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/poppins"
+        android:text="Log in"
+        android:textColor="#FFFF" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/poppins"
+        android:text="Sign Up"
+        android:textColor="#FFFF" />
 
 </LinearLayout>
