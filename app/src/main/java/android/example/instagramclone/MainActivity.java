@@ -64,9 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
 
-                case R.id.nav_cart:
-                    selectedFragment = null;
-                    startActivity(new Intent(MainActivity.this,CartActivity.class));
+                case R.id.nav_not:
+                    selectedFragment = new NotificationFragment();
 
                     break;
 
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
                     selectedFragment = new ProfileFragment();
                     break;
+
             }
 
             if(selectedFragment!=null){

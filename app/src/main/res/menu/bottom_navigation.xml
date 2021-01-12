@@ -17,8 +17,8 @@
         android:title=""/>
 
     <item
-        android:id="@+id/nav_cart"
-        android:icon="@drawable/ic_shopping"
+        android:id="@+id/nav_not"
+        android:icon="@drawable/ic_liked"
         android:title=""/>
 
     <item

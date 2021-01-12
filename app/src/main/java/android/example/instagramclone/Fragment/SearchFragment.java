@@ -18,6 +18,10 @@ import android.view.ViewGroup;
 import android.example.instagramclone.R;
 import android.widget.EditText;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +37,9 @@ public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> mUsers;
+    ChipGroup cg;
+    FirebaseUser firebaseUser;
+
 
     EditText search_bar;
 
@@ -47,6 +54,16 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         search_bar = view.findViewById(R.id.search_bar);
+        cg = view.findViewById(R.id.cg);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String [] tags = new String[] {"tag","tag2","tag3"};
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        for(String text : tags){
+            Chip chip = (Chip) li.inflate(R.layout.tags,null,false);
+            cg.addView(chip);
+            chip.setText(text);
+        }
+
 
         mUsers = new ArrayList<>();
         userAdapter = new UserAdapter(getContext(),mUsers,true);

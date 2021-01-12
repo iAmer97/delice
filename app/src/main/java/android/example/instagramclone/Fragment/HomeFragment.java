@@ -1,6 +1,10 @@
 package android.example.instagramclone.Fragment;
 
+import android.content.Intent;
 import android.example.instagramclone.Adapter.PostAdapter;
+import android.example.instagramclone.CartActivity;
+import android.example.instagramclone.MainActivity;
+import android.example.instagramclone.Model.Notification;
 import android.example.instagramclone.Model.Post2;
 import android.os.Bundle;
 
@@ -14,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.instagramclone.R;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +40,7 @@ public class HomeFragment extends Fragment {
     private List<Post2> postList;
 
     private List<String> followingList;
+    ImageView not;
 
     ProgressBar progressBar;
 
@@ -53,6 +59,14 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(),postList);
         recyclerView.setAdapter(postAdapter);
+        not = view.findViewById(R.id.nav_cart);
+        not.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),CartActivity.class);
+               startActivity(intent);
+            }
+        });
 
         progressBar = view.findViewById(R.id.progress_circular);
 

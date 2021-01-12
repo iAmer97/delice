@@ -9,6 +9,8 @@ import android.example.instagramclone.Adapter.CartAdapter;
 import android.example.instagramclone.Model.Comment;
 import android.example.instagramclone.Model.ShoppingCart;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +28,7 @@ public class CartActivity extends AppCompatActivity {
     List<ShoppingCart> carts;
     FirebaseUser firebaseUser;
     CartAdapter cartAdapter;
+    TextView clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,15 @@ public class CartActivity extends AppCompatActivity {
 
         cart.setAdapter(cartAdapter);
         getItems();
+        clear = findViewById(R.id.clearall);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("Cart")
+                        .child(firebaseUser.getUid())
+                        .removeValue();
+            }
+        });
     }
 
     public void getItems(){
