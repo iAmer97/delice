@@ -2,6 +2,7 @@ package android.example.instagramclone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        Toolbar uppernavigator =  (Toolbar) findViewById(R.id.upper_navigation);
+        setSupportActionBar(uppernavigator);
 
         Bundle intent = getIntent().getExtras();
 
