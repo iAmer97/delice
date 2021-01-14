@@ -4,9 +4,11 @@
 
     <item
         android:id="@+id/act_favorite"
-        android:icon="@drawable/ic_notif"
-        android:iconTint="@color/orange"
+        android:icon="@drawable/ic_notification"
         android:title="notification"
         app:showAsAction="always"
+        app:actionLayout="@layout/badge_notif"
         />
+
+
 </menu>

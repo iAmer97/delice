@@ -10,6 +10,7 @@
         android:id="@+id/upper_navigation"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:titleMarginStart="30dp"
         app:title="@string/app_name"
         app:titleTextColor="@color/orange"
         android:background="@color/white"
@@ -23,10 +24,17 @@
         android:background="@color/colorAccent" />
 
     <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom"
-        android:id="@+id/fragment_container"/>
+        android:layout_marginBottom="115dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/bottom"
+        android:background="@color/colorAccent" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
