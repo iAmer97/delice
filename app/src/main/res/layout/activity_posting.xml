@@ -224,17 +224,6 @@
 
     </ScrollView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/bottom"
-        android:background="@color/colorAccent" />
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottom"
-        android:layout_alignParentBottom="true">
 
 
 
