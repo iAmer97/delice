@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,7 +65,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     String myUrl = "";
     boolean ingredientChecker = false;
     boolean stepsChecker = false;
-
     int j = 0;
 
     EditText description,name,numberOfServings,tagsField;
@@ -106,6 +107,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         description = findViewById(R.id.RecDes);
         numberOfServings = findViewById(R.id.numberOfServings);
         tagsField = findViewById(R.id.tags);
+
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
         postid = reference.push().getKey();
@@ -343,6 +345,14 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         addView1();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            onBackPressed();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void addView1() {
