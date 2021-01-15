@@ -1,196 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".PostActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/upper_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleMarginStart="30dp"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/orange"
+        android:background="?android:attr/windowBackground"
+        app:titleTextAppearance="@style/ToolbarTitleTheme"
+        app:menu="@menu/upper_navigation1"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/upper_navigation"
+        android:background="@color/colorAccent" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="100dp"
-        tools:context=".Posting">
-
-
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="upload" />
-
-        <ImageSwitcher
-            android:id="@+id/Image"
-            android:layout_width="348dp"
-            android:layout_height="154dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="114dp">
-
-        </ImageSwitcher>
+        android:layout_below="@id/upper_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingBottom="100dp"
+            tools:context=".Posting">
 
             <Button
-                android:id="@+id/prev"
-                android:layout_width="wrap_content"
+                android:id="@+id/upload"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:text="Previous"
+                android:text="upload" />
+
+            <ImageSwitcher
+                android:id="@+id/Image"
+                android:layout_width="348dp"
+                android:layout_height="154dp"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="31dp"
-                tools:layout_editor_absoluteY="286dp" />
+                tools:layout_editor_absoluteY="114dp">
 
-            <Button
-                android:id="@+id/next"
+            </ImageSwitcher>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/prev"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="Previous"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="31dp"
+                    tools:layout_editor_absoluteY="286dp" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Next"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="291dp"
+                    tools:layout_editor_absoluteY="286dp" />
+
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="348dp"
+                android:layout_height="42dp"
+                android:ems="10"
+                android:hint="Your Recipe's Name"
+                android:fontFamily="@font/poppins"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="31dp"
+                tools:layout_editor_absoluteY="344dp" />
+
+            <EditText
+                android:id="@+id/RecDes"
+                android:layout_width="346dp"
+                android:layout_height="170dp"
+                android:ems="10"
+                android:hint="Recipe Description"
+                android:fontFamily="@font/poppins"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="392dp" />
+            <EditText
+                android:id="@+id/tags"
+                android:layout_width="348dp"
+                android:layout_height="42dp"
+                android:ems="10"
+                android:hint="tags (seperate with space)"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="31dp"
+                tools:layout_editor_absoluteY="344dp" />
+
+            <EditText
+                android:layout_width="166dp"
+                android:layout_height="44dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="35dp"
+                android:ems="10"
+                android:hint="Number of servings"
+                android:inputType="number"
+                android:id="@+id/numberOfServings"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="619dp" />
+
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="35dp"
+                android:text="Ingredients"
+                android:textSize="26sp"
+                tools:layout_editor_absoluteX="31dp"
+                tools:layout_editor_absoluteY="570dp" />
 
-                android:text="Next"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="291dp"
-                tools:layout_editor_absoluteY="286dp" />
-
-
-        </LinearLayout>
-
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="348dp"
-            android:layout_height="42dp"
-            android:ems="10"
-            android:hint="Recipe name"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="344dp" />
-
-        <EditText
-            android:id="@+id/RecDes"
-            android:layout_width="346dp"
-            android:layout_height="170dp"
-            android:ems="10"
-            android:hint="Recipe Description"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="32dp"
-            tools:layout_editor_absoluteY="392dp" />
-        <EditText
-            android:id="@+id/tags"
-            android:layout_width="348dp"
-            android:layout_height="42dp"
-            android:ems="10"
-            android:hint="tags (seperate with space)"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="344dp" />
-
-        <EditText
-            android:layout_width="166dp"
-            android:layout_height="44dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="35dp"
-            android:ems="10"
-            android:hint="Number of servings"
-            android:inputType="number"
-            android:id="@+id/numberOfServings"
-            tools:layout_editor_absoluteX="32dp"
-            tools:layout_editor_absoluteY="619dp" />
+            <LinearLayout
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="35dp"
-            android:text="Ingredients"
-            android:textSize="26sp"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="570dp" />
-
-        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-        </LinearLayout>
-        <LinearLayout
-        android:id="@+id/layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-        android:orientation="vertical"
-        tools:context=".Posting">
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/addbtn"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="+" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="35dp"
-            android:text="Steps"
-            android:textSize="26sp"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="570dp" />
-        <LinearLayout
-
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/layout2"
+            </LinearLayout>
+            <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
             android:orientation="vertical"
             tools:context=".Posting">
 
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add More Ingredients"
+                android:fontFamily="@font/poppins"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="35dp"
+                android:text="Steps"
+                android:textSize="26sp"
+                tools:layout_editor_absoluteX="31dp"
+                tools:layout_editor_absoluteY="570dp" />
+            <LinearLayout
+
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:context=".Posting">
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/addbtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Add More Steps" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="POST"
+                android:id="@+id/post"
+                />
         </LinearLayout>
-        <Button
-            android:id="@+id/addbtn2"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="+" />
 
+    </ScrollView>
 
-        <Button
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/bottom"
+        android:background="@color/colorAccent" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="POST"
-            android:id="@+id/post"
-            />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="?android:attr/windowBackground"
+            app:itemIconTint="@color/selector"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_navigation" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-</ScrollView>
+</RelativeLayout>
+
+
