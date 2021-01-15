@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
 
-                case R.id.nav_not:
+                case R.id.nav_shopbag:
                     selectedFragment = new NotificationFragment();
 
                     break;

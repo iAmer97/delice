@@ -134,6 +134,7 @@
                 android:layout_marginLeft="35dp"
                 android:text="Ingredients"
                 android:textSize="26sp"
+                android:fontFamily="@font/poppins"
                 tools:layout_editor_absoluteX="31dp"
                 tools:layout_editor_absoluteY="570dp" />
 
@@ -176,6 +177,7 @@
                 android:layout_marginLeft="35dp"
                 android:text="Steps"
                 android:textSize="26sp"
+                android:fontFamily="@font/poppins"
                 tools:layout_editor_absoluteX="31dp"
                 tools:layout_editor_absoluteY="570dp" />
             <LinearLayout
@@ -215,7 +217,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="POST"
+                android:text="Publish"
                 android:id="@+id/post"
                 />
         </LinearLayout>
