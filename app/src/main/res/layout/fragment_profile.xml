@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bar"
+        android:background="?android:attr/windowBackground"
+
         >
 
         <androidx.appcompat.widget.Toolbar
@@ -31,15 +33,24 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/options"
-                    android:src="@drawable/ic_options"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/options"
+                    android:src="@drawable/ic_notif" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_below="@id/bar"
+    android:background="@color/colorAccent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -65,7 +76,7 @@
                     android:id="@+id/image_profile"
                     android:src="@mipmap/ic_launcher"
                     app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"/>
-                
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"

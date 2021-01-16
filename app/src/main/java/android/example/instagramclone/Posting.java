@@ -396,4 +396,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         LL2.removeView(v);
         stepNumDec();
     }
+
+
 }

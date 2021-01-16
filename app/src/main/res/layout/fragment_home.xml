@@ -33,11 +33,12 @@
                  android:layout_alignParentTop="true"
                  android:layout_alignParentEnd="true"
                  android:layout_marginTop="5dp"
-                 android:layout_marginEnd="10dp"
+                 android:layout_marginEnd="20dp"
                  android:layout_marginRight="20dp"
                  android:src="@drawable/ic_notif" />
 
          </RelativeLayout>
+
      </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
