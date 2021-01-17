@@ -1,19 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.SearchFragment"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bar1"
+        android:background="?android:attr/windowBackground"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/toolbar1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:paddingLeft="10dp"
+                    android:textAppearance="@style/ToolbarTitleTheme">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/options"
+                    android:src="@drawable/ic_notif" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:padding="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/bar1">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,12 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
             </com.google.android.material.chip.ChipGroup>
         </RelativeLayout>
-
-
-
 
     </LinearLayout>
 
@@ -42,9 +79,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bar"
-        android:background="?android:attr/windowBackground">
-
-
+        android:background="?android:attr/windowBackground"
+        android:layout_below="@+id/linear">
 
         <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -75,5 +111,4 @@
         android:id="@+id/recycler_view"/>
 
 
-
-</LinearLayout>
+</RelativeLayout>

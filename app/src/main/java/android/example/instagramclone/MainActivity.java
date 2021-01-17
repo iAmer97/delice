@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-        Toolbar uppernavigator =  (Toolbar) findViewById(R.id.upper_navigation);
-        setSupportActionBar(uppernavigator);
-
         Bundle intent = getIntent().getExtras();
 
         if(intent != null){
