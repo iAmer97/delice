@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.example.instagramclone.Adapter.PostAdapter;
 import android.example.instagramclone.Model.Post2;
+import android.example.instagramclone.Model.User;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,9 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.instagramclone.R;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +44,9 @@ public class PostDetailsFragment extends Fragment {
     private TextView nrlikes, descriptionPost, servings;
     private String[] prepartion, quantity, ingredient;
     LinearLayout ll,ll2;
+    FirebaseUser firebaseUser;
+    ImageView imageUser;
+    Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,14 +54,14 @@ public class PostDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_post_details, container, false);
-
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         SharedPreferences preferences = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         postid = preferences.getString("postid", "none");
         descriptionPost = view.findViewById(R.id.postDescription);
         servings = view.findViewById(R.id.servings);
         ll = view.findViewById(R.id.IngredientItems);
         ll2=view.findViewById(R.id.Preparation);
-
+        imageUser = view.findViewById(R.id.image_profile);
         readPost();
 
 
@@ -112,5 +120,26 @@ public class PostDetailsFragment extends Fragment {
 
             }
         });
+    }
+    private void publisherInfo(ImageView image_profile, TextView username, TextView publisher, String userid){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+
+                Glide.with(context).load(user.getImageurl()).into(image_profile);
+                username.setText(user.getUsername());
+                publisher.setText(user.getUsername());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

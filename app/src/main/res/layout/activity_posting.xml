@@ -41,7 +41,7 @@
             tools:context=".Posting">
 
             <ImageView
-                android:id="@+id/cancel"
+                android:id="@+id/cancelPosting"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:gravity="start"

@@ -66,7 +66,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     boolean ingredientChecker = false;
     boolean stepsChecker = false;
     int j = 0;
-
+    ImageView cancel;
     EditText description,name,numberOfServings,tagsField;
 
     Map<String,Object> ingredients,stepsMap,tags;
@@ -107,7 +107,13 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         description = findViewById(R.id.RecDes);
         numberOfServings = findViewById(R.id.numberOfServings);
         tagsField = findViewById(R.id.tags);
-
+        cancel = findViewById(R.id.cancelPosting);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
         postid = reference.push().getKey();
