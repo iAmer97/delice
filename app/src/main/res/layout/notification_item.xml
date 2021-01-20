@@ -23,11 +23,12 @@
         android:layout_toStartOf="@id/post_image">
 
         <TextView
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"

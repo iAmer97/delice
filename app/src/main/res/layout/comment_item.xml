@@ -25,13 +25,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/green"
             android:id="@+id/username"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
             android:id="@+id/comment"
             android:maxLines="5"/>
     </LinearLayout>

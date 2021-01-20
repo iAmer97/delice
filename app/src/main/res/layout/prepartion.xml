@@ -10,16 +10,20 @@
         android:id="@+id/stepDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:text="Step"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textColor="@color/green"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/stepDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="description"
-        android:textSize="18sp"
+        android:fontFamily="@font/poppins"
         android:paddingTop="5dp"
-        android:paddingBottom="25dp"/>
+        android:paddingBottom="25dp"
+        android:text="description"
+        android:textSize="18sp" />
 
 </LinearLayout>

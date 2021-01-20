@@ -23,21 +23,22 @@
         android:layout_centerVertical="true">
 
         <TextView
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:text="username"
+            android:fontFamily="@font/poppins_semibold"
             android:maxLines="1"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:text="username"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/fullname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fullname"
-            android:text="Full Name"
+            android:fontFamily="@font/poppins"
             android:maxLines="1"
-            />
+            android:text="Full Name" />
     </LinearLayout>
 
     <Button

@@ -28,27 +28,20 @@
                 android:layout_alignParentStart="true"
                 android:contentDescription="close" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:layout_centerVertical="true"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_toEndOf="@id/close"/>
+
 
             <TextView
+                android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SAVE"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/save"
-                android:textSize="16sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorPrimary"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="SAVE"
+                android:textColor="@color/orange"
+                android:textSize="16sp" />
 
 
         </RelativeLayout>
@@ -71,36 +64,38 @@
             app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"/>
 
         <TextView
+            android:id="@+id/tv_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Photo"
             android:layout_gravity="center"
-            android:id="@+id/tv_change"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Change Photo"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/fullname"
-            android:hint="Full Name"
-            android:layout_marginTop="20dp"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins"
+            android:hint="Full Name" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/username"
-            android:hint="Username"
-            android:layout_marginTop="20dp"
-            />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bio"
-            android:hint="Bio"
             android:layout_marginTop="20dp"
-            />
+            android:fontFamily="@font/poppins"
+            android:hint="Username" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins"
+            android:hint="Bio" />
 
     </LinearLayout>
 

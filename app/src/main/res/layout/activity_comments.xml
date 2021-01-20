@@ -36,26 +36,28 @@
             app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"/>
 
         <EditText
+            android:id="@+id/add_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/add_comment"
-            android:layout_toRightOf="@id/image_profile"
-            android:hint="Add a comment..."
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_toLeftOf="@id/post"
+            android:layout_toRightOf="@id/image_profile"
             android:background="@android:color/transparent"
-            android:layout_toLeftOf="@id/post"/>
+            android:fontFamily="@font/poppins"
+            android:hint="Add a comment..." />
 
         <TextView
+            android:id="@+id/post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/post"
-            android:text="POST"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/colorPrimary"/>
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="POST"
+            android:textColor="@color/green" />
 
 
     </RelativeLayout>

@@ -303,10 +303,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(firebaseUser.getUid()).exists()){
-                    imageView.setImageResource(R.drawable.ic_liked);
+                    imageView.setImageResource(R.drawable.like2);
                     imageView.setTag("liked");
                 } else{
-                    imageView.setImageResource(R.drawable.ic_like);
+                    imageView.setImageResource(R.drawable.like);
                     imageView.setTag("like");
                 }
             }
@@ -367,10 +367,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(snapshot.child(id).exists()){
-                    imageView.setImageResource(R.drawable.ic_saved);
+                    imageView.setImageResource(R.drawable.saved2);
                     imageView.setTag("saved");
                 } else {
-                    imageView.setImageResource(R.drawable.ic_save);
+                    imageView.setImageResource(R.drawable.save);
                     imageView.setTag("save");
                 }
             }

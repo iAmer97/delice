@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/nav_shopbag"
-        android:icon="@drawable/ic_shopbag"
+        android:icon="@drawable/ic_notification"
         android:title=""/>
 
     <item

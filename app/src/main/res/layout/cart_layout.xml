@@ -22,7 +22,9 @@
                 android:id="@+id/product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="Carrots"
+                android:textColor="#4B846A"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -42,11 +44,13 @@
                 <EditText
                     android:id="@+id/amount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/poppins"
                     android:inputType="number"
-                    android:text="0" />
+                    android:text="0"
+                    android:textColor="#FFC107" />
 
                 <ImageView
                     android:id="@+id/inc"

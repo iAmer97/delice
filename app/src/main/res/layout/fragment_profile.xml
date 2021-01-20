@@ -70,22 +70,23 @@
                 android:padding="16dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
                     android:id="@+id/image_profile"
-                    android:src="@mipmap/ic_launcher"
-                    app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_width="98dp"
+                    android:layout_height="98dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/googleg_standard_color_18"
+                    app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:paddingLeft="20dp"
-                    android:paddingRight="4dp"
-                    android:orientation="vertical">
+                    android:paddingRight="4dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -93,108 +94,117 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="35dp">
+                            android:layout_marginLeft="35dp"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/posts"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/orange"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="posts"/>
+                                android:text="Posts"
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="35dp">
+                            android:layout_marginLeft="35dp"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/followers"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/orange"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="followers"/>
+                                android:text="Followers"
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="35dp">
+                            android:layout_marginLeft="35dp"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/following"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/orange"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="following"/>
+                                android:text="Following"
+                                android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <Button
                         android:id="@+id/edit_profile"
-                        android:layout_width="276dp"
+                        android:layout_width="206dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/button_black" />
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/orange" />
 
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
                 android:id="@+id/mid_bar"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:orientation="vertical"
+                android:padding="12dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:minLines="1"
-                    android:textStyle="bold"
                     android:id="@+id/username"
-                    android:textColor="@color/colorPrimaryDark"/>
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:id="@+id/fullname"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:fontFamily="@font/poppins"
+                    android:minLines="1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/fullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/bio"
                     android:maxLines="5"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
@@ -205,7 +215,7 @@
                 android:layout_marginLeft="-5dp"
                 android:layout_marginRight="-5dp"
                 android:id="@+id/last_bar"
-                android:background="@drawable/button_black"
+                android:background="#FFFF"
                 android:orientation="horizontal">
 
                 <ImageButton

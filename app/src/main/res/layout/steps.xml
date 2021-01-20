@@ -16,16 +16,18 @@
         android:id="@+id/steps"
         android:layout_width="120dp"
         android:layout_height="43dp"
-        android:text="Step "
         android:layout_gravity="start"
-        android:textSize="20sp" />
+        android:layout_marginLeft="28dp"
+        android:fontFamily="@font/poppins"
+        android:text="Step "
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="211dp"
         android:ems="10"
-        android:hint="description"
+        android:hint="Description"
         android:inputType="textPersonName" />
 
     <ImageView
