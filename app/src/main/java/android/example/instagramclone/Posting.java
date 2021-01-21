@@ -213,7 +213,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         for (int i = 0; i < LL2.getChildCount(); i++){
             View stepView = LL2.getChildAt(i);
             Log.i("steps",LL2.getChildCount()+"");
-            EditText steps = stepView.findViewById(R.id.steps);
+            TextView steps = stepView.findViewById(R.id.steps);
             EditText desc = stepView.findViewById(R.id.desc);
 
             if(steps.getText().toString()=="" || desc.getText().toString()==""){
@@ -301,9 +301,8 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
     public void pickImages() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK);
 
     }
     public int stepNumInc(){
