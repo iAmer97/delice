@@ -3,7 +3,7 @@ package android.example.instagramclone.Adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.example.instagramclone.Fragment.PostDetailsFragment;
-import android.example.instagramclone.Model.Post2;
+import android.example.instagramclone.Model.Post;
 import android.example.instagramclone.R;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +21,9 @@ import java.util.List;
 public class MyPhotoAdapter extends RecyclerView.Adapter<MyPhotoAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Post2> mPosts;
+    private List<Post> mPosts;
 
-    public MyPhotoAdapter(Context mContext, List<Post2> mPosts) {
+    public MyPhotoAdapter(Context mContext, List<Post> mPosts) {
         this.mContext = mContext;
         this.mPosts = mPosts;
     }
@@ -38,7 +38,7 @@ public class MyPhotoAdapter extends RecyclerView.Adapter<MyPhotoAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Post2 post = mPosts.get(position);
+        Post post = mPosts.get(position);
 
         Glide.with(mContext).load(post.getPostimages().get(0)).into(holder.post_image);
 

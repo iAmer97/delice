@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.example.instagramclone.Adapter.MyPhotoAdapter;
 import android.example.instagramclone.EditProfileActivity;
 import android.example.instagramclone.FollowingActivity;
-import android.example.instagramclone.Model.Post2;
+import android.example.instagramclone.Model.Post;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.OptionsActivity;
 import android.os.Bundle;
@@ -53,11 +53,11 @@ public class ProfileFragment extends Fragment {
 
     RecyclerView recyclerView_saved;
     MyPhotoAdapter myPhotoAdapter_saved;
-    List<Post2> postList_saved;
+    List<Post> postList_saved;
 
     RecyclerView recyclerView;
     MyPhotoAdapter myPhotoAdapter;
-    List<Post2> postList;
+    List<Post> postList;
 
     FirebaseUser firebaseUser;
     String profileid;
@@ -287,7 +287,7 @@ public class ProfileFragment extends Fragment {
                     Log.w("post", map.toString());
                     Log.w("num", map.get("numberOfServings").getClass().getName());
 
-                    Post2 post = new Post2((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
+                    Post post = new Post((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
 
                     if(post.getPublisher().equals(profileid)){
                         postList.add(post);
@@ -341,7 +341,7 @@ public class ProfileFragment extends Fragment {
                     Log.w("post", map.toString());
                     Log.w("num", map.get("numberOfServings").getClass().getName());
 
-                    Post2 post = new Post2((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
+                    Post post = new Post((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
 
                     if(mySaves.contains(post.getPostid())){
                         postList_saved.add(post);

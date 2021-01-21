@@ -7,8 +7,7 @@ import android.example.instagramclone.CommentsActivity;
 import android.example.instagramclone.FollowingActivity;
 import android.example.instagramclone.Fragment.PostDetailsFragment;
 import android.example.instagramclone.Fragment.ProfileFragment;
-import android.example.instagramclone.Model.Post2;
-import android.example.instagramclone.Model.ShoppingCart;
+import android.example.instagramclone.Model.Post;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
 import android.util.Log;
@@ -33,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +39,11 @@ import java.util.Map;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public Context mContext;
-    public List<Post2> mPost;
+    public List<Post> mPost;
 
     private FirebaseUser firebaseUser;
 
-    public PostAdapter(Context mContext, List<Post2> mPost) {
+    public PostAdapter(Context mContext, List<Post> mPost) {
         this.mContext = mContext;
         this.mPost = mPost;
     }
@@ -60,7 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Post2 post = mPost.get(position);
+        Post post = mPost.get(position);
 
         Glide.with(mContext)
                 .applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder)).load(post.getPostimages().get(0)).into(holder.post_image);

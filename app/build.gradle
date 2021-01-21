@@ -51,6 +51,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.shts:StoriesProgressiveView:3.0.0'
     // Skip this if you don't want to use integration libraries or configure Glide.
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'

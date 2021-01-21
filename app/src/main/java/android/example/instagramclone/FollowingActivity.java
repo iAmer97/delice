@@ -44,7 +44,7 @@ public class FollowingActivity extends AppCompatActivity {
         id = intent.getStringExtra("id");
         title = intent.getStringExtra("title");
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

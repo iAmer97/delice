@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.example.instagramclone.Fragment.PostDetailsFragment;
 import android.example.instagramclone.Fragment.ProfileFragment;
 import android.example.instagramclone.Model.Notification;
-import android.example.instagramclone.Model.Post2;
+import android.example.instagramclone.Model.Post;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
 import android.util.Log;
@@ -140,7 +140,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {};
                 Map<String, Object> map = snapshot.getValue(genericTypeIndicator);
                 Log.w("post " + (String)map.get("postid"), map.toString());
-                Post2 post = new Post2((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
+                Post post = new Post((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
 
                 Glide.with(mContext).load(post.getPostimages().get(0)).into(imageView);
             }
