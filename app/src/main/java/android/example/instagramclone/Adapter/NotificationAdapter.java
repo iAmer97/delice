@@ -8,6 +8,7 @@ import android.example.instagramclone.Model.Notification;
 import android.example.instagramclone.Model.Post2;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
@@ -133,7 +137,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Post2 post = snapshot.getValue(Post2.class);
+                GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {};
+                Map<String, Object> map = snapshot.getValue(genericTypeIndicator);
+                Log.w("post " + (String)map.get("postid"), map.toString());
+                Post2 post = new Post2((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
+
                 Glide.with(mContext).load(post.getPostimages().get(0)).into(imageView);
             }
 

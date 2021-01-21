@@ -259,6 +259,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
 
                                 hashMap.put("postid",postid);
+                                hashMap.put("name",name.getText().toString());
                                 hashMap.put("postimages",imageDownloadUrls);
                                 hashMap.put("description",description.getText().toString());
                                 hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());

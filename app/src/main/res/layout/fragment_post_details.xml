@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ingredientLayout"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.PostDetailsFragment">
+
+    <LinearLayout
+        android:id="@+id/ingredientLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <ImageView
         android:id="@+id/post_image"
@@ -22,8 +27,8 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/imageButton"
+        <ImageView
+            android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
@@ -37,13 +42,15 @@
             android:gravity="start"
             android:paddingLeft="5dp"
             android:text="10"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:id="@+id/likes"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="5dp"
-            android:src="@drawable/ic_shopping" />
+            android:src="@drawable/ic_shopping"
+            android:id="@+id/add_cart"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,13 +59,15 @@
             android:gravity="start"
             android:paddingLeft="5dp"
             android:text="Add to basket"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:id="@+id/add_cart_text"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
-            android:src="@drawable/ic_save" />
+            android:src="@drawable/ic_save"
+            android:id="@+id/save"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +75,8 @@
             android:layout_gravity="center"
             android:gravity="start"
             android:text="Save"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:id="@+id/save_text"/>
     </LinearLayout>
 
     <LinearLayout
@@ -148,5 +158,16 @@
 
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins"
+        android:text="View All 20 Comments"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>

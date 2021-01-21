@@ -113,7 +113,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/publisher"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

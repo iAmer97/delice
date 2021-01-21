@@ -114,23 +114,12 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void updateProfile() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
-        HashMap<String,Object> hashMap = new HashMap<>();
-
-        hashMap.put("fullname",fullname);
-        hashMap.put("username",username);
-        hashMap.put("bio",bio);
-
-        reference.updateChildren(hashMap);
-    }
 
     private String getFileExtension(Uri uri){
         return  MimeTypeMap.getFileExtensionFromUrl(uri.toString());
     }
 
-    private void uploadImage(){
+    private void updateProfile(){
         ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Uploading...");
         pd.show();
@@ -157,6 +146,9 @@ public class EditProfileActivity extends AppCompatActivity {
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
                         HashMap<String,Object> hashMap = new HashMap<>();
+                        hashMap.put("fullname",fullname.getText().toString());
+                        hashMap.put("username",username.getText().toString());
+                        hashMap.put("bio",bio.getText().toString());
                         hashMap.put("imageurl",myUri);
 
                         reference.updateChildren(hashMap);

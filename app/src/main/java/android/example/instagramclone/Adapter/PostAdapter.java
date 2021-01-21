@@ -73,7 +73,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.description.setText(post.getDescription());
         }
 
-        publisherInfo(holder.image_profile,holder.username,holder.publisher,post.getPublisher());
+        holder.name.setText(post.getName());
+
+        publisherInfo(holder.image_profile,holder.publisher,post.getPublisher());
 
         isLiked(post.getPostid(),holder.like);
         nrlikes(holder.likes,post.getPostid());
@@ -81,19 +83,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         isSaved(post.getPostid(),holder.save);
 
         holder.image_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
-
-                editor.putString("profileid",post.getPublisher());
-                editor.apply();
-
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-
-            }
-        });
-
-        holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
@@ -178,6 +167,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+
         holder.comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,7 +244,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView image_profile, post_image, like, comment, save,add_cart;
-        public TextView username, likes, publisher, description, comments;
+        public TextView username, likes,publisher,name, description, comments;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -264,9 +254,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             like = itemView.findViewById(R.id.like);
             comment = itemView.findViewById(R.id.comment);
             save = itemView.findViewById(R.id.save);
-            username = itemView.findViewById(R.id.username);
+            publisher = itemView.findViewById(R.id.username);
             likes = itemView.findViewById(R.id.likes);
-            publisher = itemView.findViewById(R.id.publisher);
+            name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
             comments = itemView.findViewById(R.id.comments);
             add_cart = itemView.findViewById(R.id.add_cart);
@@ -337,7 +327,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     }
 
-    private void publisherInfo(ImageView image_profile, TextView username, TextView publisher, String userid){
+    private void publisherInfo(ImageView image_profile, TextView publisher, String userid){
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
@@ -347,7 +337,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 User user = snapshot.getValue(User.class);
 
                 Glide.with(mContext).load(user.getImageurl()).into(image_profile);
-                username.setText(user.getUsername());
                 publisher.setText(user.getUsername());
             }
 

@@ -30,6 +30,31 @@
                     android:textAppearance="@style/ToolbarTitleTheme">
                 </TextView>
 
+                <TextView
+                    android:id="@+id/search_results"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins"
+                    android:text="search results"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_toLeftOf="@id/search_results"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/close"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_close" />
+
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"

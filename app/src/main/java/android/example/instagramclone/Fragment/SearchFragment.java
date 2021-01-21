@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.instagramclone.R;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -37,11 +41,14 @@ public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> mUsers;
+    private List<String> tags;
     ChipGroup cg;
     FirebaseUser firebaseUser;
 
 
     EditText search_bar;
+
+    Button search;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,16 +61,66 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         search_bar = view.findViewById(R.id.search_bar);
+        search = view.findViewById(R.id.search);
         cg = view.findViewById(R.id.cg);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String [] tags = new String[] {"vegan","steak","western","vietnamesefood","dessert","spaghetti","malaysianfood","chicken","noodle","ice","japanesefood"};
         LayoutInflater li = LayoutInflater.from(getActivity());
-        for(String text : tags){
-            Chip chip = (Chip) li.inflate(R.layout.tags,null,false);
-            cg.addView(chip);
-            chip.setText(text);
-        }
 
+        tags = new ArrayList<>();
+        final int[] id = {0};
+        FirebaseDatabase.getInstance().getReference("Tags").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int temp = id[0];
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(!tags.contains(dataSnapshot.getKey())){
+                        Chip chip = (Chip) li.inflate(R.layout.tags,null,false);
+                        cg.addView(chip);
+                        chip.setText(dataSnapshot.getKey());
+                        chip.setId(temp);
+                        temp++;
+                        tags.add(dataSnapshot.getKey());
+                    }
+                }
+                id[0] = temp;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Integer> ids = cg.getCheckedChipIds();
+                if(ids.size() == 0){
+                    Toast.makeText(getContext(), "Please select at least one tag", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    ArrayList<String> checkedTags = new ArrayList<>();
+                    for (Integer id : ids) {
+                        Chip chip = cg.findViewById(id);
+                        checkedTags.add(chip.getText().toString());
+
+                    }
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putStringArrayList("checkedTags", checkedTags);
+
+                    Fragment fragment = new HomeFragment();
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
 
         mUsers = new ArrayList<>();
         userAdapter = new UserAdapter(getContext(),mUsers,true);

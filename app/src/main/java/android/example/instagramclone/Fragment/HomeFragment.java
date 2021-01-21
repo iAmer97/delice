@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.example.instagramclone.R;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,8 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +43,10 @@ public class HomeFragment extends Fragment {
     private List<Post2> postList;
 
     private List<String> followingList;
-    ImageView not;
+    ImageView not,close;
 
     ProgressBar progressBar;
+    TextView searchResults;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +55,8 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        searchResults = view.findViewById(R.id.search_results);
+        close = view.findViewById(R.id.close);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -72,7 +78,27 @@ public class HomeFragment extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        checkFollowing();
+        if(getArguments()!=null){
+
+            searchResults.setVisibility(View.VISIBLE);
+            close.setVisibility(View.VISIBLE);
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    searchResults.setVisibility(View.INVISIBLE);
+                    close.setVisibility(View.INVISIBLE);
+                    checkFollowing();
+                }
+            });
+
+            getSearchResults();
+
+        }
+        else {
+            checkFollowing();
+        }
         return view;
     }
 
@@ -136,5 +162,38 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+    private void getSearchResults(){
+        ArrayList<String> checkedTags = (ArrayList<String>)getArguments().getSerializable("checkedTags");
+        FirebaseDatabase.getInstance().getReference("Posts").orderByChild("tags/"+checkedTags.get(0)).equalTo(true).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {};
+                    Map<String, Object> map = dataSnapshot.getValue(genericTypeIndicator);
+
+                    Post2 post = new Post2((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
+
+                    List<String> postTags = new ArrayList<>(post.getTags().keySet());
+
+                    if(postTags.containsAll(checkedTags)){
+                        postList.add(post);
+                    }
+                }
+
+                postAdapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
 }
