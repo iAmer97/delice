@@ -66,7 +66,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="8dp"
+            >
 
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -89,8 +90,8 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="244dp"
-                android:layout_marginRight="-121dp"
+                android:layout_marginEnd="200dp"
+                android:layout_marginRight="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="username"
                 android:textColor="@color/green"
@@ -102,8 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="330dp"
-                android:layout_marginEnd="244dp"
+                android:layout_marginStart="295dp"
+                android:layout_marginEnd="220dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="10 likes"
                 android:textColor="@color/orange"
