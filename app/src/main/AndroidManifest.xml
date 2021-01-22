@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InstagramClone"
         tools:replace="android:theme">
-        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".StoryActivity"></activity>
+        <activity android:name=".AddStoryActivity" />
+        <activity android:name=".CartActivity" />
         <activity android:name=".Model.ShoppingCart" />
         <activity android:name=".Posting" />
         <activity android:name=".OptionsActivity" />
@@ -25,9 +27,9 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".PostActivity" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".StartActivity">
