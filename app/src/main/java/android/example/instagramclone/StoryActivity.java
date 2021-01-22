@@ -1,15 +1,16 @@
 package android.example.instagramclone;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.example.instagramclone.Model.Story;
 import android.example.instagramclone.Model.User;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -94,7 +95,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
 
     @Override
     public void onPrev() {
-        if((counter - 1) > 0) return;
+        if((counter - 1) < 0) return;
         Glide.with(getApplicationContext()).load(images.get(--counter)).into(image);
 
     }
@@ -136,7 +137,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
                     Story story = snapshot1.getValue(Story.class);
                     long timecurrent= System.currentTimeMillis();
                     if (timecurrent>story.getTimestart() && timecurrent<story.getTimeend()){
-                        images.add(story.getImageurl());
+                        images.add(story.getImageUrl());
                         storyids.add(story.getStoryid());
                     }
                 }
@@ -145,6 +146,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
                 storiesProgressView.setStoriesListener(StoryActivity.this);
                 storiesProgressView.startStories(counter);
 
+                Log.w("stories",images.toString());
                 Glide.with(getApplicationContext()).load(images.get(counter)).into(image);
 
             }

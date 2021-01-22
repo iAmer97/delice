@@ -1,12 +1,12 @@
 package android.example.instagramclone.Model;
 
 public class Story {
-    String imageurl,storyid,userid;
+    String imageUrl,storyid,userid;
     long timestart,timeend;
 
 
-    public Story(String imageurl, String storyid, String userid, long timestart, long timeend) {
-        this.imageurl = imageurl;
+    public Story(String imageUrl, String storyid, String userid, long timestart, long timeend) {
+        this.imageUrl = imageUrl;
         this.storyid = storyid;
         this.userid = userid;
         this.timestart = timestart;
@@ -16,12 +16,12 @@ public class Story {
     public Story() {
     }
 
-    public String getImageurl() {
-        return imageurl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImageUrl(String imageurl) {
+        this.imageUrl = imageurl;
     }
 
     public String getStoryid() {

@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -42,11 +43,19 @@ public class AddStoryActivity extends AppCompatActivity {
         storageReference= FirebaseStorage.getInstance().getReference("Story");
         CropImage.activity().setAspectRatio(9,16).start(this);
     }
+
+    /*
     private String getFileExtension(Uri uri){
 
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }*/
+
+    private String getFileExtension(Uri uri){
+        Log.i("uri", MimeTypeMap.getFileExtensionFromUrl(uri.toString()));
+        Log.w("uri", uri.toString());
+        return  MimeTypeMap.getFileExtensionFromUrl(uri.toString());
     }
 
     private void publishStory(){

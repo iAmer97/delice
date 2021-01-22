@@ -9,6 +9,7 @@ import android.example.instagramclone.Model.Story;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
 import android.example.instagramclone.StoryActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 if(holder.getAdapterPosition() == 0){
+                    Log.w("problem","Hi");
                     myStory(holder.add_story_text,holder.story_plus,true);
                 }else{
                     Intent intent = new Intent(mContext, StoryActivity.class);
@@ -129,6 +131,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.w("problem2","Hi2"+click);
                 int count = 0;
                 long timecurrent = System.currentTimeMillis();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
@@ -136,40 +139,46 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                     if (timecurrent > story.getTimestart() && timecurrent < story.getTimeend()) {
                         count++;
                     }
-                    if (click) {
-                        if(count > 0) {
-                            AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "View Story", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(mContext, StoryActivity.class);
-                                    intent.putExtra("userid", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                    mContext.startActivity(intent);
-                                    dialog.dismiss();
-                                }
-                            });
-                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "View Story", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(mContext, AddStoryActivity.class);
-                                    mContext.startActivity(intent);
-                                    dialog.dismiss();
-                                }
-                            });
-                            alertDialog.show();
-                        }else {
-                            Intent intent = new Intent(mContext, AddStoryActivity.class);
-                            mContext.startActivity(intent);
-                        }
+                }
 
+                if (click) {
+                    Log.w("problem2","Hi3");
+                    if(count > 0) {
+                        Log.w("problem2","Hi4");
+                        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "View Story", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(mContext, StoryActivity.class);
+                                intent.putExtra("userid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                mContext.startActivity(intent);
+                                dialog.dismiss();
+                            }
+                        });
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Add Story", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(mContext, AddStoryActivity.class);
+                                mContext.startActivity(intent);
+                                dialog.dismiss();
+                            }
+                        });
+                        alertDialog.show();
+                    }else {
+                        Log.w("problem2","Hi5");
+                        Intent intent = new Intent(mContext, AddStoryActivity.class);
+                        mContext.startActivity(intent);
+                    }
+
+                } else {
+                    if (count > 0) {
+                        Log.w("problem2","Hi6");
+                        text.setText("My Story");
+                        image.setVisibility(View.GONE);
                     } else {
-                        if (count > 0) {
-                            text.setText("My Story");
-                            image.setVisibility(View.GONE);
-                        } else {
-                            text.setText("Add Story");
-                            image.setVisibility(View.VISIBLE);
-                        }
+                        Log.w("problem2","Hi7");
+                        text.setText("Add Story");
+                        image.setVisibility(View.VISIBLE);
                     }
                 }
             }
