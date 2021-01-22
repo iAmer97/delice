@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.instagramclone.R;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,6 +71,7 @@ public class PostDetailsFragment extends Fragment {
         readPost();
 
 
+
         like = view.findViewById(R.id.like);
         addCart = view.findViewById(R.id.add_cart);
         save = view.findViewById(R.id.save);
@@ -78,6 +81,9 @@ public class PostDetailsFragment extends Fragment {
 
         return view;
     }
+
+
+
 
     private void readPost() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts").child(postid);
@@ -326,6 +332,7 @@ public class PostDetailsFragment extends Fragment {
 
             }
         });
+
     }
 
     private void isLiked(String postid, ImageView imageView){
@@ -449,4 +456,6 @@ public class PostDetailsFragment extends Fragment {
         });
 
     }
+
+
 }

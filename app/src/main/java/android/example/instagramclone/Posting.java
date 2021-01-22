@@ -60,16 +60,16 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         this.stepNum = stepNum;
     }
 
-    Button next, prev, add, add2, upload, post;
-    LinearLayout LL,LL2;
+    Button add, add2, upload, post;
+    LinearLayout LL, LL2;
     String myUrl = "";
     boolean ingredientChecker = false;
     boolean stepsChecker = false;
     int j = 0;
     ImageView cancel;
-    EditText description,name,numberOfServings,tagsField;
+    EditText description, name, numberOfServings, tagsField;
 
-    Map<String,Object> ingredients,stepsMap,tags;
+    Map<String, Object> ingredients, stepsMap, tags;
 
     List<Object> imageDownloadUrls;
 
@@ -88,8 +88,6 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
         image = findViewById(R.id.Image);
-        prev = findViewById(R.id.prev);
-        next = findViewById(R.id.next);
         LL = findViewById(R.id.layout);
         LL2 = findViewById(R.id.layout2);
         add = findViewById(R.id.addbtn);
@@ -117,7 +115,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
         postid = reference.push().getKey();
-        storageReference = FirebaseStorage.getInstance().getReference("posts/"+postid);
+        storageReference = FirebaseStorage.getInstance().getReference("posts/" + postid);
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,26 +123,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
                 pickImages();
             }
         });
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (position < imageuris.size() - 1) {
-                    position++;
-                    image.setImageURI(imageuris.get(position));
-                }
-            }
-        });
 
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (position > 0) {
-                    position--;
-                    image.setImageURI(imageuris.get(position));
-                }
-
-            }
-        });
         image.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -157,32 +136,35 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                String[] texts = new String[]{name.getText().toString(), description.getText().toString(), numberOfServings.getText().toString(), tagsField.getText().toString()};
+                if (check(texts,stepsMap,ingredients)) {
+                    uploadImage();
+                }
             }
         });
     }
 
-    private String getFileExtension(Uri uri){
+    private String getFileExtension(Uri uri) {
         Log.i("uri", MimeTypeMap.getFileExtensionFromUrl(uri.toString()));
         Log.w("uri", uri.toString());
-        return  MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+        return MimeTypeMap.getFileExtensionFromUrl(uri.toString());
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Posting");
         progressDialog.show();
 
         String[] tagsList = tagsField.getText().toString().split(" ");
-        for (int i = 0; i < tagsList.length; i++ ){
-            tags.put(tagsList[i],true);
+        for (int i = 0; i < tagsList.length; i++) {
+            tags.put(tagsList[i], true);
 
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tags").child(tagsList[i]);
 
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(!snapshot.exists()){
+                    if (!snapshot.exists()) {
                         reference.setValue(true);
                     }
                 }
@@ -194,49 +176,45 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
             });
         }
 
-        for (int i = 0; i < LL.getChildCount(); i++){
+        for (int i = 0; i < LL.getChildCount(); i++) {
             View ingredientView = LL.getChildAt(i);
 
             EditText quantity = ingredientView.findViewById(R.id.quantity);
             EditText ingredient = ingredientView.findViewById(R.id.ingredient);
 
-            if(quantity.getText().toString()=="" || ingredient.getText().toString()==""){
+            if (quantity.getText().toString() == "" || ingredient.getText().toString() == "") {
                 ingredientChecker = true;
                 break;
-            }
-
-            else{
-                ingredients.put(ingredient.getText().toString(),quantity.getText().toString());
+            } else {
+                ingredients.put(ingredient.getText().toString(), quantity.getText().toString());
             }
         }
 
-        for (int i = 0; i < LL2.getChildCount(); i++){
+        for (int i = 0; i < LL2.getChildCount(); i++) {
             View stepView = LL2.getChildAt(i);
-            Log.i("steps",LL2.getChildCount()+"");
+            Log.i("steps", LL2.getChildCount() + "");
             TextView steps = stepView.findViewById(R.id.steps);
             EditText desc = stepView.findViewById(R.id.desc);
 
-            if(steps.getText().toString()=="" || desc.getText().toString()==""){
+            if (steps.getText().toString() == "" || desc.getText().toString() == "") {
                 stepsChecker = true;
                 break;
-            }
-
-            else{
-                stepsMap.put("step "+steps.getText().toString(),desc.getText().toString());
+            } else {
+                stepsMap.put("step " + steps.getText().toString(), desc.getText().toString());
             }
         }
 
-        if(imageuris.size() != 0 ){
+        if (imageuris.size() != 0) {
 
-            for (j = 0; j < imageuris.size();j++){
+            for (j = 0; j < imageuris.size(); j++) {
                 myUrl = "";
-                StorageReference filereference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageuris.get(j)));
+                StorageReference filereference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageuris.get(j)));
 
                 uploadTask = filereference.putFile(imageuris.get(j));
                 uploadTask.continueWithTask(new Continuation() {
                     @Override
                     public Object then(@NonNull Task task) throws Exception {
-                        if(!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
                             throw task.getException();
                         }
 
@@ -245,51 +223,49 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
                 }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
                             myUrl = downloadUri.toString();
-                            Log.w("urls",myUrl);
+                            Log.w("urls", myUrl);
                             imageDownloadUrls.add(myUrl);
 
-                            if(imageDownloadUrls.size()==imageuris.size()){
-                                HashMap<String,Object> hashMap = new HashMap<>();
+                            if (imageDownloadUrls.size() == imageuris.size()) {
+                                HashMap<String, Object> hashMap = new HashMap<>();
 
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
 
-
-                                hashMap.put("postid",postid);
-                                hashMap.put("name",name.getText().toString());
-                                hashMap.put("postimages",imageDownloadUrls);
-                                hashMap.put("description",description.getText().toString());
+                                hashMap.put("postid", postid);
+                                hashMap.put("name", name.getText().toString());
+                                hashMap.put("postimages", imageDownloadUrls);
+                                hashMap.put("description", description.getText().toString());
                                 hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                hashMap.put("tags",tags);
-                                hashMap.put("ingredients",ingredients);
-                                hashMap.put("steps",stepsMap);
-                                hashMap.put("numberOfServings",numberOfServings.getText().toString());
+                                hashMap.put("tags", tags);
+                                hashMap.put("ingredients", ingredients);
+                                hashMap.put("steps", stepsMap);
+                                hashMap.put("numberOfServings", numberOfServings.getText().toString());
 
-                                Log.i("hi",hashMap.toString());
+                                Log.i("hi", hashMap.toString());
 
                                 reference.child(postid).setValue(hashMap);
 
                                 progressDialog.dismiss();
 
-                                startActivity(new Intent(Posting.this,MainActivity.class));
+                                startActivity(new Intent(Posting.this, MainActivity.class));
                                 finish();
 
                             }
-                        } else{
-                            Toast.makeText(Posting.this, "Image number "+j+ "failed!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Posting.this, "Image number " + j + "failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Posting.this,"["+j+"]"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Posting.this, "[" + j + "]" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
-
 
 
         } else {
@@ -306,13 +282,15 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK);
 
     }
-    public int stepNumInc(){
+
+    public int stepNumInc() {
         int num = getStepNum();
         num++;
         setStepNum(num);
         return num;
     }
-    public void stepNumDec(){
+
+    public void stepNumDec() {
         int num = getStepNum();
         num--;
         setStepNum(num);
@@ -355,24 +333,24 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             onBackPressed();
         }
         return super.onKeyDown(keyCode, event);
     }
 
     public void addView1() {
-            final View add_ingredients_row = getLayoutInflater().inflate(R.layout.quantity, null, false);
-            EditText quantity = add_ingredients_row.findViewById(R.id.quantity);
-            EditText ingredient = add_ingredients_row.findViewById(R.id.ingredient);
-            ImageView cancel = add_ingredients_row.findViewById(R.id.cancelbtn);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    removeView(add_ingredients_row);
-                }
-            });
-            LL.addView(add_ingredients_row);
+        final View add_ingredients_row = getLayoutInflater().inflate(R.layout.quantity, null, false);
+        EditText quantity = add_ingredients_row.findViewById(R.id.quantity);
+        EditText ingredient = add_ingredients_row.findViewById(R.id.ingredient);
+        ImageView cancel = add_ingredients_row.findViewById(R.id.cancelbtn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(add_ingredients_row);
+            }
+        });
+        LL.addView(add_ingredients_row);
     }
 
     public void removeView(View v) {
@@ -381,13 +359,13 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
 
     public void onClick2(View v) {
-       addview2();
+        addview2();
     }
 
     private void addview2() {
         final View add_steps = getLayoutInflater().inflate(R.layout.steps, null, false);
         TextView steps = add_steps.findViewById(R.id.steps);
-        steps.setText(steps.getText() +""+ stepNumInc());
+        steps.setText(steps.getText() + "" + stepNumInc());
         EditText desc = add_steps.findViewById(R.id.desc);
         ImageView cancel2 = add_steps.findViewById(R.id.cancelbtn2);
         cancel2.setOnClickListener(new View.OnClickListener() {
@@ -398,10 +376,23 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
         });
         LL2.addView(add_steps);
     }
+
     public void removeView2(View v) {
         LL2.removeView(v);
         stepNumDec();
     }
 
-
+    public boolean check(String[] arr,Map stepsMap,Map ingredients) {
+        for (String text : arr) {
+            if (text.isEmpty()) {
+                Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        if (stepsMap.isEmpty() || ingredients.isEmpty()){
+            Toast.makeText(this, "Please complete steps and ingredients", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 }

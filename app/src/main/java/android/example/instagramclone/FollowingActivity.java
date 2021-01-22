@@ -12,6 +12,7 @@ import android.example.instagramclone.Model.User;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 //import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +55,6 @@ public class FollowingActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="60dp"
+    android:layout_width="70dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -36,7 +36,6 @@
         android:id="@+id/add_story_text"
         android:fontFamily="@font/poppins"
         android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
         android:textColor="@color/green"
         android:maxLines="1"/>
 

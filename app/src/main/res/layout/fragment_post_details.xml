@@ -208,5 +208,6 @@
         android:text="View All 20 Comments"
         android:textColor="@color/colorAccent"
         android:textSize="14sp" />
+
 </LinearLayout>
 </androidx.core.widget.NestedScrollView>
