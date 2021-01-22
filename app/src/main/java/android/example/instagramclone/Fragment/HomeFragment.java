@@ -219,11 +219,11 @@ public class HomeFragment extends Fragment {
                         if(timecurrent>story.getTimestart() && timecurrent<story.getTimeend()){
                             countStory++;
                         }
-                        if(countStory>0){
-                            storiesList.add(story);
-                        }
                     }
-                    storyAdapter.notifyDataSetChanged();
+                    if(countStory>0){
+                        storiesList.add(story);
+                        storyAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
