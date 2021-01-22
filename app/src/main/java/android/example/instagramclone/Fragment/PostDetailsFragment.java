@@ -343,7 +343,7 @@ public class PostDetailsFragment extends Fragment {
                     imageView.setImageResource(R.drawable.like2);
                     imageView.setTag("liked");
                 } else{
-                    imageView.setImageResource(R.drawable.like);
+                    imageView.setImageResource(R.drawable.heart);
                     imageView.setTag("like");
                 }
             }
@@ -385,7 +385,7 @@ public class PostDetailsFragment extends Fragment {
                     imageView.setImageResource(R.drawable.saved2);
                     imageView.setTag("saved");
                 } else {
-                    imageView.setImageResource(R.drawable.save);
+                    imageView.setImageResource(R.drawable.saved3);
                     imageView.setTag("save");
                 }
             }

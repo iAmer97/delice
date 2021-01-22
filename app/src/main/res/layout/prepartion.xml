@@ -11,9 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
+        android:paddingTop="10dp"
         android:text="Step"
-        android:textColor="@color/green"
-        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -24,6 +25,6 @@
         android:paddingTop="5dp"
         android:paddingBottom="25dp"
         android:text="description"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 </LinearLayout>

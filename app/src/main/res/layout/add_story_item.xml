@@ -29,11 +29,15 @@
 
 
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_story_text"
+        android:fontFamily="@font/poppins"
         android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/green"
         android:maxLines="1"/>
 
 </LinearLayout>
