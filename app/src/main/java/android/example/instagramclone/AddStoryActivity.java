@@ -119,7 +119,7 @@ public class AddStoryActivity extends AppCompatActivity {
             mImageUri = activityResult.getUri();
             publishStory();
         }else{
-            Toast.makeText(this, "Something gone wrong!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,data.getFlags(), Toast.LENGTH_SHORT).show();
             startActivity(new Intent(AddStoryActivity.this , MainActivity.class));
             finish();
         }

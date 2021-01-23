@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.example.instagramclone.Adapter.PostAdapter;
 import android.example.instagramclone.Adapter.StoryAdapter;
 import android.example.instagramclone.CartActivity;
+import android.example.instagramclone.DmActivite;
 import android.example.instagramclone.Model.Post;
 import android.example.instagramclone.Model.Story;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class HomeFragment extends Fragment {
     private List<Story> storiesList;
     private StoryAdapter storyAdapter;
     private List<String> followingList;
-    ImageView not,close;
+    ImageView not,close,navDM;
 
     ProgressBar progressBar;
     TextView searchResults;
@@ -76,6 +77,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),CartActivity.class);
                startActivity(intent);
+            }
+        });
+
+        navDM = view.findViewById(R.id.nav_dm);
+
+        navDM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), DmActivite.class));
             }
         });
 
@@ -120,8 +130,10 @@ public class HomeFragment extends Fragment {
                 }
 
                 Log.i("following",""+followingList.size());
+
                 readPosts();
                 readStory();
+
             }
 
             @Override
@@ -204,13 +216,17 @@ public class HomeFragment extends Fragment {
     private void readStory(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Story");
 
+        Log.i("story","h1");
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("story","h2");
                 long timecurrent = System.currentTimeMillis();
                 storiesList.clear();
                 storiesList.add(new Story("","",FirebaseAuth.getInstance().getCurrentUser().getUid(),0
                         ,0));
+                Log.i("story","h13");
                 for(String id : followingList){
                     int countStory =0;
                     Story story = null;
@@ -222,9 +238,10 @@ public class HomeFragment extends Fragment {
                     }
                     if(countStory>0){
                         storiesList.add(story);
-                        storyAdapter.notifyDataSetChanged();
                     }
                 }
+
+                storyAdapter.notifyDataSetChanged();
             }
 
             @Override

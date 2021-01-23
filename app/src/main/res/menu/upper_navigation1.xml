@@ -11,4 +11,11 @@
         app:actionLayout="@layout/badge_notif"
         />
 
+    <item
+        android:id="@+id/dm"
+        android:icon="@drawable/ic_baseline_message_24"
+        android:title="Direct Messaging"
+        app:showAsAction="always"
+        />
+
 </menu>

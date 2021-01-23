@@ -14,7 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InstagramClone"
         tools:replace="android:theme">
-        <activity android:name=".StoryActivity"></activity>
+        <activity android:name=".DmActivite"></activity>
+        <activity android:name=".StoryActivity" />
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".AddStoryActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".Model.ShoppingCart" />

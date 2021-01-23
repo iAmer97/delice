@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.example.instagramclone.Adapter.MyPhotoAdapter;
+import android.example.instagramclone.ChatActivity;
 import android.example.instagramclone.EditProfileActivity;
 import android.example.instagramclone.FollowingActivity;
 import android.example.instagramclone.Model.Post;
@@ -47,7 +48,7 @@ public class ProfileFragment extends Fragment {
 
     ImageView image_profile, options;
     TextView posts, followers, following, fullname, bio, username;
-    Button edit_profile;
+    Button edit_profile,message;
 
     private List<String> mySaves;
 
@@ -60,7 +61,7 @@ public class ProfileFragment extends Fragment {
     List<Post> postList;
 
     FirebaseUser firebaseUser;
-    String profileid;
+    String profileid,usernameText;
 
     ImageButton my_photos, saved_photos;
 
@@ -87,6 +88,7 @@ public class ProfileFragment extends Fragment {
         edit_profile = view.findViewById(R.id.edit_profile);
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
+        message = view.findViewById(R.id.message);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -115,8 +117,20 @@ public class ProfileFragment extends Fragment {
         getFollowing();
         getSaves();
 
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("userId",profileid);
+                intent.putExtra("source","profile");
+
+                startActivity(intent);
+            }
+        });
+
         if(profileid.equals(firebaseUser.getUid())){
             edit_profile.setText("Edit Profile");
+            message.setVisibility(View.GONE);
         }
         else {
             checkFollow();
@@ -207,6 +221,7 @@ public class ProfileFragment extends Fragment {
                 User user = snapshot.getValue(User.class);
 
                 Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
+                usernameText = user.getUsername();
                 username.setText(user.getUsername());
                 fullname.setText(user.getFullname());
                 bio.setText(user.getBio());
