@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.chip.Chip
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chip_item"
     style="@style/chip"
     android:text="Example"
-    android:backgroundTint="@color/green"
-    android:fontFamily="@font/poppins"
     android:textSize="14sp"
     android:textColor="@color/white"
     android:layout_width="wrap_content"

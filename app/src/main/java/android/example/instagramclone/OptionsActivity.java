@@ -22,7 +22,7 @@ public class OptionsActivity extends AppCompatActivity {
         logout= findViewById(R.id.logout);
         settings= findViewById(R.id.settings);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Options");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
