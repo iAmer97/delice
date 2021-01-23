@@ -7,6 +7,7 @@ import android.example.instagramclone.Fragment.ProfileFragment;
 import android.example.instagramclone.MainActivity;
 import android.example.instagramclone.Model.User;
 import android.example.instagramclone.R;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,9 +137,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(userid).exists()){
                     button.setText("following");
+                    button.setBackgroundColor(Color.rgb(75, 132, 106));
                 }
                 else{
                     button.setText("follow");
+                    button.setBackgroundColor(Color.rgb(248, 179, 22));
                 }
             }
 

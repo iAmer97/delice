@@ -155,6 +155,7 @@ public class ProfileFragment extends Fragment {
                 else if(btn.equals("following")){
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid()).child("following").child(profileid).removeValue();
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid).child("followers").child(firebaseUser.getUid()).removeValue();
+
                 }
             }
         });

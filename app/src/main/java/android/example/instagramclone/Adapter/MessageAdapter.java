@@ -87,7 +87,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             if(fromUserID.equals(messageSenderID)){
                 holder.senderMessageText.setBackgroundResource(R.drawable.sender_message_text_background);
-                holder.senderMessageText.setTextColor(R.color.white);
                 holder.senderMessageText.setGravity(Gravity.LEFT);
                 holder.senderMessageText.setText(message.getMessage());
             }
@@ -98,7 +97,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 holder.imageProfile.setVisibility(View.VISIBLE);
 
                 holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_message_text_background);
-                holder.receiverMessageText.setTextColor(R.color.white);
                 holder.receiverMessageText.setGravity(Gravity.LEFT);
                 holder.receiverMessageText.setText(message.getMessage());
             }

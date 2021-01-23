@@ -212,19 +212,25 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         >
+
                         <Button
                             android:id="@+id/message"
-                            android:layout_width="170dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="message"
+                            android:layout_marginRight="10dp"
                             android:textColor="@color/white"
+                            android:fontFamily="@font/poppins"
                             android:backgroundTint="@color/orange" />
+
                         <Button
                             android:id="@+id/edit_profile"
-                            android:layout_width="170dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:text="following"
+                            android:fontFamily="@font/poppins"
                             android:backgroundTint="@color/orange" />
 
                     </LinearLayout>

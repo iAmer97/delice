@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView" />
@@ -18,13 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="2dp"
+        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@id/image_profile"
-        android:background="@drawable/receiver_message_text_background"
         android:text="message"
+        android:fontFamily="@font/poppins_semibold"
         android:padding="10dp"
         android:textSize="14sp"
-        android:textStyle="bold"
         android:textColor="@color/white"/>
 
     <TextView
@@ -33,13 +32,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/sender_message_text_background"
-        android:text="message"
+        android:textColor="#FFFF"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="normal"
+        android:backgroundTint="@color/green"
         android:padding="10dp"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
+        />
 
 
 </RelativeLayout>

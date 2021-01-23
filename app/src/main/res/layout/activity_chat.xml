@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/action_bar"
+        android:background="?android:attr/windowBackground"
         >
 
         <androidx.appcompat.widget.Toolbar
@@ -23,6 +24,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/action_bar"
         android:layout_above="@id/my_linear_layout"
         android:id="@+id/messages_list_users"
@@ -39,23 +41,27 @@
 
         <ImageButton
             android:id="@+id/send_image"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_camera_alt_24"/>
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/camera"
+            android:backgroundTint="#FFFFFF"/>
 
         <EditText
+            android:id="@+id/input_message"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/green"
             android:hint="write your message here"
-            android:padding="17dp"
-            android:id="@+id/input_message"/>
+            android:padding="17dp" />
 
         <ImageButton
             android:id="@+id/send_message"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_send_24"/>
+            android:layout_width="70dp"
+            android:layout_height="68dp"
+            android:src="@drawable/send"
+            android:backgroundTint="#FFFFFF"/>
 
 
     </LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/design_default_color_primary">
+    android:background="?android:attr/windowBackground">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_profile"
@@ -22,9 +22,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/custom_profile_name"
         android:text="display username"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_semibold"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"/>
