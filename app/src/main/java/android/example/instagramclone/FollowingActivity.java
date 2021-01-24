@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 //import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +36,7 @@ public class FollowingActivity extends AppCompatActivity {
     UserAdapter userAdapter;
     List<User> userList;
     Toolbar toolbar;
+    TextView pageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class FollowingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         title = intent.getStringExtra("title");
+
+        pageTitle = findViewById(R.id.pageTitle);
 
         toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
@@ -68,14 +72,17 @@ public class FollowingActivity extends AppCompatActivity {
         switch (title){
             case "likes":
                 getLikes();
+                pageTitle.setText("likes");
                 break;
 
             case "following":
                 getFollowing();
+                pageTitle.setText("following");
                 break;
 
             case "followers":
                 getFollowers();
+                pageTitle.setText("followers");
                 break;
         }
 
