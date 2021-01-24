@@ -66,7 +66,7 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
     List<Object> imageDownloadUrls;
 
     public static ArrayList<Uri> imageuris;
-    public ImageSwitcher image;
+    public ImageView image;
     public static final int PICK = 0;
     int position = 0;
     int pics = 0;
@@ -116,14 +116,14 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-        image.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                ImageView imageView = new ImageView(getApplicationContext());
-                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                return imageView;
-            }
-        });
+//        image.setFactory(new ViewSwitcher.ViewFactory() {
+//            @Override
+//            public View makeView() {
+//                ImageView imageView = new ImageView(getApplicationContext());
+//                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//                return imageView;
+//            }
+//        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,7 +272,6 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK);
-
     }
 
     public int stepNumInc() {
@@ -381,8 +380,8 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
                 return false;
             }
         }
-        if (stepsMap.isEmpty() || ingredients.isEmpty()){
-            Toast.makeText(this, "Please complete steps and ingredients", Toast.LENGTH_SHORT).show();
+        if (LL2.getChildCount() == 0 || LL.getChildCount() == 0){
+            Toast.makeText(this, "Please fill the steps and ingredients", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostActivity"
+    tools:context=".PostingActivity"
 
     >
 
@@ -96,18 +96,19 @@
 
         </LinearLayout>
 
-            <ImageSwitcher
+            <ImageView
                 android:id="@+id/Image"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_width="348dp"
                 android:layout_height="348dp"
+                android:scaleType="fitCenter"
                 tools:ignore="MissingConstraints"
                 android:background="@drawable/add_image"
                 tools:layout_editor_absoluteX="31dp"
                 tools:layout_editor_absoluteY="114dp">
 
-            </ImageSwitcher>
+            </ImageView>
 
             <EditText
                 android:id="@+id/name"
