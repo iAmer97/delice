@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="android.example.instagramclone">
+    package="android.example.delice">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,28 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Delice"
         tools:replace="android:theme">
-        <activity android:name=".DmActivity"></activity>
-        <activity android:name=".StoryActivity" />
+        <activity android:name="android.example.delice.DmActivity"></activity>
+        <activity android:name="android.example.delice.StoryActivity" />
         <activity
-            android:name=".ChatActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".AddStoryActivity" />
-        <activity android:name=".CartActivity" />
-        <activity android:name=".Model.ShoppingCart" />
-        <activity android:name=".PostingActivity" />
-        <activity android:name=".OptionsActivity" />
-        <activity android:name=".FollowingActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".CommentsActivity" />
+            android:name="android.example.delice.ChatActivity"
+            android:parentActivityName="android.example.delice.MainActivity" />
+        <activity android:name="android.example.delice.AddStoryActivity" />
+        <activity android:name="android.example.delice.CartActivity" />
+        <activity android:name="android.example.delice.Model.ShoppingCart" />
+        <activity android:name="android.example.delice.PostingActivity" />
+        <activity android:name="android.example.delice.OptionsActivity" />
+        <activity android:name="android.example.delice.FollowingActivity" />
+        <activity android:name="android.example.delice.EditProfileActivity" />
+        <activity android:name="android.example.delice.CommentsActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".MainActivity"
+            android:name="android.example.delice.MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name="android.example.delice.RegisterActivity" />
+        <activity android:name="android.example.delice.LoginActivity" />
+        <activity android:name="android.example.delice.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
