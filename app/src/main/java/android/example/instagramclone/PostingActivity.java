@@ -3,14 +3,10 @@ package android.example.instagramclone;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,14 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Posting extends AppCompatActivity implements View.OnClickListener {
+public class PostingActivity extends AppCompatActivity implements View.OnClickListener {
     public int stepNum = 0;
 
     public int getStepNum() {
@@ -251,18 +243,18 @@ public class Posting extends AppCompatActivity implements View.OnClickListener {
 
                                 progressDialog.dismiss();
 
-                                startActivity(new Intent(Posting.this, MainActivity.class));
+                                startActivity(new Intent(PostingActivity.this, MainActivity.class));
                                 finish();
 
                             }
                         } else {
-                            Toast.makeText(Posting.this, "Image number " + j + "failed!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostingActivity.this, "Image number " + j + "failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Posting.this, "[" + j + "]" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostingActivity.this, "[" + j + "]" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

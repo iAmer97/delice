@@ -2,7 +2,6 @@ package android.example.instagramclone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.nav_add:
                     selectedFragment = null;
-                    startActivity(new Intent(MainActivity.this,Posting.class));
+                    startActivity(new Intent(MainActivity.this, PostingActivity.class));
 
                     break;
 

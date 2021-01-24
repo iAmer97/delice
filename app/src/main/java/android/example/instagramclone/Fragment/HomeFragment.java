@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.example.instagramclone.Adapter.PostAdapter;
 import android.example.instagramclone.Adapter.StoryAdapter;
 import android.example.instagramclone.CartActivity;
-import android.example.instagramclone.DmActivite;
+import android.example.instagramclone.DmActivity;
 import android.example.instagramclone.Model.Post;
 import android.example.instagramclone.Model.Story;
 import android.os.Bundle;
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
         navDM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), DmActivite.class));
+                startActivity(new Intent(getActivity(), DmActivity.class));
             }
         });
 

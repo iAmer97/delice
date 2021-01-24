@@ -10,7 +10,6 @@ import android.example.instagramclone.Adapter.ChatAdapter;
 import android.example.instagramclone.Model.Chat;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -30,7 +29,7 @@ public class DmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dm_activite);
+        setContentView(R.layout.activity_dm);
 
         chatsRV = findViewById(R.id.chats_rv);
         chatList = new ArrayList<>();
