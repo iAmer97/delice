@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DmActivite extends AppCompatActivity {
+public class DmActivity extends AppCompatActivity {
 
     RecyclerView chatsRV;
     ChatAdapter chatAdapter;
