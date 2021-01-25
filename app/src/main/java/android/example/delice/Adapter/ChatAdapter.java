@@ -53,8 +53,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         userDetails(holder.profileImage,holder.username,chat.getId());
 
         holder.message.setText(chat.getLastMessage());
+        holder.newMessage.setVisibility(View.GONE);
 
-
+        /*
         if(!chat.getLastMessageFrom().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getUid()) && !chat.isLastMessageIsSeen().equalsIgnoreCase("false")){
             holder.newMessage.setVisibility(View.VISIBLE);
         }
@@ -62,6 +63,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         else{
             holder.newMessage.setVisibility(View.GONE);
         }
+        */
+
 
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override

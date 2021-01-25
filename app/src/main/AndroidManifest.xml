@@ -18,7 +18,7 @@
         <activity android:name="android.example.delice.StoryActivity" />
         <activity
             android:name="android.example.delice.ChatActivity"
-            android:parentActivityName="android.example.delice.MainActivity" />
+            android:parentActivityName="android.example.delice.DmActivity" />
         <activity android:name="android.example.delice.AddStoryActivity" />
         <activity android:name="android.example.delice.CartActivity" />
         <activity android:name="android.example.delice.Model.ShoppingCart" />

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.example.delice.Model.User;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -120,11 +121,12 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void updateProfile(){
-        ProgressDialog pd = new ProgressDialog(this);
-        pd.setMessage("Uploading...");
-        pd.show();
 
         if(mImageUri != null){
+            ProgressDialog pd = new ProgressDialog(this);
+            pd.setMessage("Uploading...");
+            pd.show();
+
             StorageReference fileReference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(mImageUri));
 
             uploadTask = fileReference.putFile(mImageUri);
@@ -168,7 +170,22 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         
         else{
-            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
+
+            if(TextUtils.isEmpty(fullname.getText().toString())|| TextUtils.isEmpty(username.getText().toString()) ){
+                Toast.makeText(this, "You can't have an empty fullname or username", Toast.LENGTH_SHORT).show();
+            }
+
+            else {
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("fullname", fullname.getText().toString());
+                hashMap.put("username", username.getText().toString());
+                hashMap.put("bio", bio.getText().toString());
+
+                reference.updateChildren(hashMap);
+                Toast.makeText(this, "Your profile was updated", Toast.LENGTH_SHORT).show();
+            }
         }
         
     }

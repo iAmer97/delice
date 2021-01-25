@@ -135,12 +135,14 @@ public class PostDetailsFragment extends Fragment {
                     ingr.setText(ingredient[i]);
                     ll.addView(view1);
                 }
+                Log.w("steps", post[0].getSteps().toString());
                 for(int i=0;i<prepartion.length;i++){
                     View view2 = li.inflate(R.layout.prepartion,null,false);
                     TextView stepnum = view2.findViewById(R.id.stepDisplay);
                     TextView stepdesc = view2.findViewById(R.id.stepDescription);
                     stepnum.setText("Step "+(i+1));
-                    stepdesc.setText(prepartion[i]);
+                    Log.w("steps", post[0].getSteps().get("step Step "+(i+1)).toString());
+                    stepdesc.setText(post[0].getSteps().get("step Step "+(i+1)).toString());
                     ll2.addView(view2);
                 }
 

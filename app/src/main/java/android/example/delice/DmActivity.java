@@ -59,7 +59,8 @@ public class DmActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                Log.w("chat","hi");
+                chatAdapter.notifyDataSetChanged();
             }
 
             @Override
