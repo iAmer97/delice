@@ -1,5 +1,6 @@
 package android.example.delice.Fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.delice.R;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,6 +68,8 @@ public class PostDetailsFragment extends Fragment {
         imageUser = view.findViewById(R.id.image_profile);
         postImage = view.findViewById(R.id.post_image);
         username = view.findViewById(R.id.username);
+
+
         readPost();
 
 
@@ -454,6 +458,5 @@ public class PostDetailsFragment extends Fragment {
         });
 
     }
-
 
 }
