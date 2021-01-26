@@ -12,10 +12,13 @@ import android.example.delice.Model.User;
 import android.example.delice.R;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -23,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -232,6 +237,42 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
+        holder.edit_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu pop = new PopupMenu(mContext, v);
+
+                pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.edit:
+                                //TODO EDIT POST
+                                return true;
+                            case R.id.delete:
+                                FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostid()).removeValue()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                pop.inflate(R.menu.post_menu);
+                if(!post.getPublisher().equals(firebaseUser.getUid())){
+                    pop.getMenu().findItem(R.id.edit).setVisible(false);
+                    pop.getMenu().findItem(R.id.delete).setVisible(false);
+                }
+                pop.show();
+            }
+        });
     }
 
     @Override
@@ -241,7 +282,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView image_profile, post_image, like, comment, save,add_cart;
+        public ImageView image_profile, post_image, like, comment, save,add_cart,edit_post;
         public TextView username, likes,publisher,name, description, comments;
 
         public ViewHolder(@NonNull View itemView) {
@@ -258,6 +299,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             description = itemView.findViewById(R.id.description);
             comments = itemView.findViewById(R.id.comments);
             add_cart = itemView.findViewById(R.id.add_cart);
+            edit_post = itemView.findViewById(R.id.edit_post);
         }
     }
 
