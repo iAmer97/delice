@@ -262,7 +262,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful()){
-                                                    FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByChild("postid").equalTo(post.getPostid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                            .orderByChild("postid").equalTo(post.getPostid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -275,7 +276,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                                                     map.put(key, null);
                                                                 }
 
-                                                                FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(map);
+                                                                FirebaseDatabase.getInstance().getReference("Notifications")
+                                                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(map);
                                                             }
                                                         }
 

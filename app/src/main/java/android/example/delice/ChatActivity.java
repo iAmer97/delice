@@ -209,7 +209,6 @@ public class ChatActivity extends AppCompatActivity {
 
                     receiverName.setText(user.getUsername());
                 Glide.with(getApplicationContext()).load(user.getImageurl()).into(receiverProfileImage);
-                    // TODO: 22/1/2021 Glide he used something called Picaso .. glide is better because it caches pictures https://medium.com/@shikhar1234/why-glide-is-better-than-picasso-35406676ff81
 
             }
 

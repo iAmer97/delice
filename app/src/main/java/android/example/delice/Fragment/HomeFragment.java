@@ -119,7 +119,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void checkFollowing(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("following");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("following");
         followingList = new ArrayList<>();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -153,12 +154,8 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {};
                     Map<String, Object> map = dataSnapshot.getValue(genericTypeIndicator);
-                    Log.w("post", map.toString());
-                    Log.w("num", map.get("numberOfServings").getClass().getName());
 
                     Post post = new Post((String)map.get("postid"),(ArrayList) map.get("postimages"), (String) map.get("description"), (String) map.get("name"),(String) map.get("publisher"),(Map<String, Object>)map.get("tags"),(Map<String, Object>) map.get("ingredients"),(Map<String, Object>) map.get("steps"),(String) map.get("numberOfServings"));
-
-                    Log.w("ingredients", post.getIngredients().toString());
                     if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(post.getPublisher())){
                         postList.add(post);
                     }

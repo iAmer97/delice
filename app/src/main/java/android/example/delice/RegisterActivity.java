@@ -67,9 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String str_password = password.getText().toString();
 
                 if(TextUtils.isEmpty(str_username) || TextUtils.isEmpty(str_fullname) || TextUtils.isEmpty(str_email) || TextUtils.isEmpty(str_password)){
+                    pd.dismiss();
                     Toast.makeText(RegisterActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 }
                 else if(str_password.length() < 6){
+                    pd.dismiss();
                     Toast.makeText(RegisterActivity.this, "Password must have 6 characters", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -111,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                         } else{
                             pd.dismiss();
-                            Toast.makeText(RegisterActivity.this, "You can't register with this email or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

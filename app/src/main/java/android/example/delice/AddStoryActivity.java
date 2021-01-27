@@ -116,7 +116,7 @@ public class AddStoryActivity extends AppCompatActivity {
             mImageUri = activityResult.getUri();
             publishStory();
         }else{
-            Toast.makeText(this,data.getFlags(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"You didn't choose a picture", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(AddStoryActivity.this , MainActivity.class));
             finish();
         }

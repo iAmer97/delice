@@ -311,9 +311,6 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
                                 hashMap.put("ingredients", ingredients);
                                 hashMap.put("steps", stepsMap);
                                 hashMap.put("numberOfServings", numberOfServings.getText().toString());
-
-                                Log.i("hi", hashMap.toString());
-
                                 reference.child(postid).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -365,8 +362,6 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
             hashMap.put("ingredients", ingredients);
             hashMap.put("steps", stepsMap);
             hashMap.put("numberOfServings", numberOfServings.getText().toString());
-
-            Log.i("hi2", hashMap.toString());
 
             reference.child(postid).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -537,6 +532,10 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
         }
         if (LL2.getChildCount() == 0 || LL.getChildCount() == 0){
             Toast.makeText(this, "Please fill the steps and ingredients", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(imageuris.size() == 0 && !getIntent().getStringExtra("key").equalsIgnoreCase("edit")){
+            Toast.makeText(this, "Please upload a photo", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
