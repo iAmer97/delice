@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -71,6 +72,7 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
     int position = 0;
     int pics = 0;
     String postid;
+    String editTitle,editDescription, editImage;
 
     StorageTask uploadTask;
     StorageReference storageReference;
@@ -105,8 +107,21 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("key");
+
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
-        postid = reference.push().getKey();
+
+        if(key.equalsIgnoreCase("edit")){
+            postid = intent.getStringExtra("postid");
+            upload.setText("update");
+            loadPostData(postid);
+        }
+        else {
+            postid = reference.push().getKey();
+            upload.setText("upload");
+        }
         storageReference = FirebaseStorage.getInstance().getReference("posts/" + postid);
 
         upload.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +151,51 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    private void loadPostData(String postid) {
+
+        Log.w("postdata","hi");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts").child(postid);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                name.setText(""+snapshot.child("name").getValue());
+                numberOfServings.setText(""+snapshot.child("numberOfServings").getValue());
+                description.setText(""+snapshot.child("description").getValue());
+
+                String tagsString="";
+                for(DataSnapshot dataSnapshot : snapshot.child("tags").getChildren()){
+                    tagsString+= dataSnapshot.getKey() + " ";
+                }
+                tagsField.setText(tagsString);
+
+                for(DataSnapshot dataSnapshot : snapshot.child("ingredients").getChildren()){
+                    String quantity = dataSnapshot.getValue()+"";
+                    String ingredient = dataSnapshot.getKey();
+
+                    addView1(quantity,ingredient);
+                }
+
+                for (int i = 0; i<snapshot.child("steps").getChildrenCount();i++){
+                    String description = ""+snapshot.child("steps").child("step Step "+(i+1)).getValue();
+                    addview2(description);
+                }
+
+                Glide.with(getBaseContext()).load(snapshot.child("postimages/0").getValue()+"").into(image);
+                imageDownloadUrls.add(snapshot.child("postimages/0").getValue()+"");
+                //postimage
+
+                Log.w("postdata",snapshot.toString());
+                Log.w("postdata",snapshot.child("postimages/0").getValue()+"");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private String getFileExtension(Uri uri) {
         Log.i("uri", MimeTypeMap.getFileExtensionFromUrl(uri.toString()));
         Log.w("uri", uri.toString());
@@ -144,11 +204,17 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
 
     private void uploadImage() {
         ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Posting");
+        if(getIntent().getStringExtra("key").equalsIgnoreCase("edit")){
+            progressDialog.setMessage("Updatng");
+        }
+        else {
+            progressDialog.setMessage("Posting");
+        }
         progressDialog.show();
 
         String[] tagsList = tagsField.getText().toString().split(" ");
         for (int i = 0; i < tagsList.length; i++) {
+            Log.w("tags",tagsList[i]);
             tags.put(tagsList[i], true);
 
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tags").child(tagsList[i]);
@@ -174,6 +240,8 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
             EditText quantity = ingredientView.findViewById(R.id.quantity);
             EditText ingredient = ingredientView.findViewById(R.id.ingredient);
 
+            Log.w("ingredients",ingredient.getText().toString());
+
             if (quantity.getText().toString() == "" || ingredient.getText().toString() == "") {
                 ingredientChecker = true;
                 break;
@@ -187,6 +255,8 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
             Log.i("steps", LL2.getChildCount() + "");
             TextView steps = stepView.findViewById(R.id.steps);
             EditText desc = stepView.findViewById(R.id.desc);
+
+            Log.w("steps",desc.getText().toString());
 
             if (steps.getText().toString() == "" || desc.getText().toString() == "") {
                 stepsChecker = true;
@@ -219,7 +289,12 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
                             Uri downloadUri = task.getResult();
                             myUrl = downloadUri.toString();
                             Log.w("urls", myUrl);
-                            imageDownloadUrls.add(myUrl);
+                            if(getIntent().getStringExtra("key").equalsIgnoreCase("edit")){
+                                imageDownloadUrls.set(0,myUrl);
+                            }
+                            else{
+                                imageDownloadUrls.add(myUrl);
+                            }
 
                             if (imageDownloadUrls.size() == imageuris.size()) {
                                 HashMap<String, Object> hashMap = new HashMap<>();
@@ -239,12 +314,27 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
 
                                 Log.i("hi", hashMap.toString());
 
-                                reference.child(postid).setValue(hashMap);
-
-                                progressDialog.dismiss();
-
-                                startActivity(new Intent(PostingActivity.this, MainActivity.class));
-                                finish();
+                                reference.child(postid).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            progressDialog.dismiss();
+                                            if(getIntent().getStringExtra("key").equalsIgnoreCase("edit")) {
+                                                Toast.makeText(PostingActivity.this, "Post updated successfully!", Toast.LENGTH_SHORT).show();
+                                            }
+                                            startActivity(new Intent(PostingActivity.this, MainActivity.class));
+                                            finish();
+                                        }
+                                        else{
+                                            progressDialog.dismiss();
+                                            if(getIntent().getStringExtra("key").equalsIgnoreCase("edit")) {
+                                                Toast.makeText(PostingActivity.this, "Something went wrong during updating post", Toast.LENGTH_SHORT).show();
+                                            }
+                                            startActivity(new Intent(PostingActivity.this, MainActivity.class));
+                                            finish();
+                                        }
+                                    }
+                                });
 
                             }
                         } else {
@@ -261,8 +351,41 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
 
 
         } else {
-            progressDialog.dismiss();
-            Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+            HashMap<String, Object> hashMap = new HashMap<>();
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+
+
+            hashMap.put("postid", postid);
+            hashMap.put("name", name.getText().toString());
+            hashMap.put("postimages", imageDownloadUrls);
+            hashMap.put("description", description.getText().toString());
+            hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            hashMap.put("tags", tags);
+            hashMap.put("ingredients", ingredients);
+            hashMap.put("steps", stepsMap);
+            hashMap.put("numberOfServings", numberOfServings.getText().toString());
+
+            Log.i("hi2", hashMap.toString());
+
+            reference.child(postid).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        progressDialog.dismiss();
+                        Toast.makeText(PostingActivity.this, "Post updated successfully!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(PostingActivity.this, MainActivity.class));
+                        finish();
+                    }
+                    else{
+                        progressDialog.dismiss();
+                        Toast.makeText(PostingActivity.this, "Something went wrong during updating post", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(PostingActivity.this, MainActivity.class));
+                        finish();
+                    }
+                }
+            });
+
 
         }
     }
@@ -344,6 +467,22 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
         LL.addView(add_ingredients_row);
     }
 
+    public void addView1(String number, String thing) {
+        final View add_ingredients_row = getLayoutInflater().inflate(R.layout.quantity, null, false);
+        EditText quantity = add_ingredients_row.findViewById(R.id.quantity);
+        quantity.setText(number);
+        EditText ingredient = add_ingredients_row.findViewById(R.id.ingredient);
+        ingredient.setText(thing);
+        ImageView cancel = add_ingredients_row.findViewById(R.id.cancelbtn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(add_ingredients_row);
+            }
+        });
+        LL.addView(add_ingredients_row);
+    }
+
     public void removeView(View v) {
         LL.removeView(v);
     }
@@ -358,6 +497,22 @@ public class PostingActivity extends AppCompatActivity implements View.OnClickLi
         TextView steps = add_steps.findViewById(R.id.steps);
         steps.setText(steps.getText() + "" + stepNumInc());
         EditText desc = add_steps.findViewById(R.id.desc);
+        ImageView cancel2 = add_steps.findViewById(R.id.cancelbtn2);
+        cancel2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView2(add_steps);
+            }
+        });
+        LL2.addView(add_steps);
+    }
+
+    private void addview2(String description) {
+        final View add_steps = getLayoutInflater().inflate(R.layout.steps, null, false);
+        TextView steps = add_steps.findViewById(R.id.steps);
+        steps.setText(steps.getText() + "" + stepNumInc());
+        EditText desc = add_steps.findViewById(R.id.desc);
+        desc.setText(description);
         ImageView cancel2 = add_steps.findViewById(R.id.cancelbtn2);
         cancel2.setOnClickListener(new View.OnClickListener() {
             @Override

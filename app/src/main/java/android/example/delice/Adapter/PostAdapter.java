@@ -9,6 +9,7 @@ import android.example.delice.Fragment.PostDetailsFragment;
 import android.example.delice.Fragment.ProfileFragment;
 import android.example.delice.Model.Post;
 import android.example.delice.Model.User;
+import android.example.delice.PostingActivity;
 import android.example.delice.R;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -237,6 +238,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
+
         holder.edit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,6 +250,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         switch (item.getItemId()){
                             case R.id.edit:
                                 //TODO EDIT POST
+
+                                Intent intent = new Intent(mContext, PostingActivity.class);
+                                intent.putExtra("key","edit");
+                                intent.putExtra("postid",post.getPostid());
+                                mContext.startActivity(intent);
                                 return true;
                             case R.id.delete:
                                 FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostid()).removeValue()
@@ -255,6 +262,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful()){
+                                                    FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByChild("postid").equalTo(post.getPostid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                            if(snapshot.exists()) {
+                                                                GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {
+                                                                };
+                                                                Map<String, Object> map = snapshot.getValue(genericTypeIndicator);
+
+                                                                for (String key : map.keySet()) {
+                                                                    map.put(key, null);
+                                                                }
+
+                                                                FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(map);
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+
+                                                    FirebaseDatabase.getInstance().getReference("Comments").child(post.getPostid()).removeValue();
+                                                    FirebaseDatabase.getInstance().getReference("Likes").child(post.getPostid()).removeValue();
+
                                                     Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
                                                 }
                                             }

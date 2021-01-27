@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.nav_add:
                     selectedFragment = null;
-                    startActivity(new Intent(MainActivity.this, PostingActivity.class));
+                    Intent intent = new Intent(MainActivity.this, PostingActivity.class);
+                    intent.putExtra("key","post");
+                    startActivity(intent);
 
                     break;
 
