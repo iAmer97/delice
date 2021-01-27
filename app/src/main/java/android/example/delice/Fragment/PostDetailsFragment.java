@@ -8,6 +8,7 @@ import android.example.delice.CommentsActivity;
 import android.example.delice.FollowingActivity;
 import android.example.delice.Model.Post;
 import android.example.delice.Model.User;
+import android.example.delice.PostingActivity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,16 +17,21 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.example.delice.R;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,8 +51,8 @@ public class PostDetailsFragment extends Fragment {
     String postid;
     private TextView  descriptionPost, servings, username;
     private String[] prepartion, quantity, ingredient;
-    ImageView like, addCart, save;
-    TextView likes, addCartText,comments;
+    ImageView like, addCart, save, more;
+    TextView likes, addCartText,comments,name;
     LinearLayout ll,ll2;
     FirebaseUser firebaseUser;
     ImageView imageUser,postImage;
@@ -68,6 +74,8 @@ public class PostDetailsFragment extends Fragment {
         imageUser = view.findViewById(R.id.image_profile);
         postImage = view.findViewById(R.id.post_image);
         username = view.findViewById(R.id.username);
+        more = view.findViewById(R.id.more);
+
 
 
         readPost();
@@ -75,11 +83,14 @@ public class PostDetailsFragment extends Fragment {
 
 
         like = view.findViewById(R.id.like);
+        name = view.findViewById(R.id.name);
         addCart = view.findViewById(R.id.add_cart);
         save = view.findViewById(R.id.save);
         likes = view.findViewById(R.id.likes);
         addCartText = view.findViewById(R.id.add_cart_text);
         comments = view.findViewById(R.id.comments);
+
+
 
         return view;
     }
@@ -109,6 +120,11 @@ public class PostDetailsFragment extends Fragment {
                 ingredients = post[0].getIngredients();
                 steps = post[0].getSteps();
                 serving = post[0].getNumberOfServings();
+                name.setText(post[0].getName().toString());
+                String publisherID = (String)map.get("publisher");
+                if(!publisherID.equals(firebaseUser.getUid())){
+                    more.setVisibility(View.GONE);
+                }
 
                 publisherInfo(imageUser,username,(String)map.get("publisher")); //use method publisherInfo() to get the publisher info and put them in the layout
 
@@ -336,6 +352,73 @@ public class PostDetailsFragment extends Fragment {
 
             }
         });
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu pop = new PopupMenu(getContext(), v);
+
+                pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.edit:
+                                Intent intent = new Intent(getContext(), PostingActivity.class);
+                                intent.putExtra("key","edit");
+                                intent.putExtra("postid",post[0].getPostid());
+                                getContext().startActivity(intent);
+                                return true;
+                            case R.id.delete:
+                                FirebaseDatabase.getInstance().getReference("Posts").child(post[0].getPostid()).removeValue()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByChild("postid").equalTo(post[0].getPostid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                            if(snapshot.exists()) {
+                                                                GenericTypeIndicator<Map<String, Object>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Object>>() {
+                                                                };
+                                                                Map<String, Object> map = snapshot.getValue(genericTypeIndicator);
+
+                                                                for (String key : map.keySet()) {
+                                                                    map.put(key, null);
+                                                                }
+
+                                                                FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(map);
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+
+                                                    FirebaseDatabase.getInstance().getReference("Comments").child(post[0].getPostid()).removeValue();
+                                                    FirebaseDatabase.getInstance().getReference("Likes").child(post[0].getPostid()).removeValue();
+
+                                                    Toast.makeText(getContext(), "Deleted!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                pop.inflate(R.menu.post_menu);
+                if(!post[0].getPublisher().equals(firebaseUser.getUid())){
+                    pop.getMenu().findItem(R.id.edit).setVisible(false);
+                    pop.getMenu().findItem(R.id.delete).setVisible(false);
+                }
+                pop.show();
+            }
+        });
+
+
 
     }
 
